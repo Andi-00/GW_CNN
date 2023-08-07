@@ -30,7 +30,7 @@ teSp = int(0.8 * n_data)
 vaSp = int(0.1 * n_data)
 trSP = int(0.1 * n_data)
 
-# Train / Validation / Test - Data
+# Train / Validation / Test - Data a
 train_data = data[:teSp]
 valid_data = data[teSp : teSp + vaSp]
 test_data = data[teSp + vaSp:]
