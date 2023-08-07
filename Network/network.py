@@ -9,7 +9,7 @@ from matplotlib import pyplot as plt
 data = []
 
 # Number of datasets with n_max = 1E4
-n_data = 10
+n_data = 1000
 
 # Templates for the data sets and the true values
 data = np.zeros((n_data, 79, 2001))
@@ -35,9 +35,9 @@ train_data = data[:teSp]
 valid_data = data[teSp : teSp + vaSp]
 test_data = data[teSp + vaSp:]
 
-train_data = labels[:teSp]
-valid_data = labels[teSp : teSp + vaSp]
-test_data = labels[teSp + vaSp:]
+train_labels = labels[:teSp]
+valid_labels = labels[teSp : teSp + vaSp]
+test_labels = labels[teSp + vaSp:]
 
 # Creating the model of the CNN
 
@@ -54,11 +54,23 @@ model.add(keras.layers.Conv2D(32, (5, 3), activation = "relu"))
 model.add(keras.layers.Conv2D(32, (5, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.summary()
+# Dense Layers
 
 model.add(keras.layers.Flatten())
 model.add(keras.layers.Dense(64, activation = 'relu'))
 model.add(keras.layers.Dense(16, activation = "relu"))
 
 model.summary()
+
+
+model.compile(optimizer='adam',
+              loss = "mse",
+              metrics=['mse'])
+
+history = model.fit(train_data, train_labels, epochs = 100, 
+                    validation_data = (valid_data, valid_labels))
+
+model.save("./my_first_model.keras")
+
+np.save('./model_history.npy', history.history)
 
