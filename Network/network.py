@@ -12,7 +12,7 @@ data = []
 n_data = 1000
 
 # Templates for the data sets and the true values
-data = np.zeros((n_data, 79, 2001))
+data = np.zeros((n_data, 79, 2001, 1))
 labels = np.zeros((n_data, 5))
 
 # loading the data sets and the labels
@@ -20,9 +20,9 @@ for i in range(n_data):
     tempd = np.genfromtxt("/hpcwork/cg457676/data/Processed_Data_0/pspec0_{:05}.csv".format(i), delimiter = ",")
 
     j = i % 1000
-    templ = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_{}.csv".format(i // 1000), delimiter = ",")[j]
+    templ = np.genfromtxt("/hpcwork/cg457676/data/processed_parameter/pro_par{}.csv".format(i // 1000), delimiter = ",")[j]
 
-    data[i] = tempd
+    data[i] = np.reshape(tempd, (79, 2001, 1))
     labels[i] = templ
 
 # split
@@ -42,26 +42,28 @@ test_labels = labels[teSp + vaSp:]
 # Creating the model of the CNN
 
 model = keras.models.Sequential()
-model.add(keras.layers.Conv2D(8, (5, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model.add(keras.layers.Conv2D(8, (5, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(16, (5, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(16, (5, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((1,2)))
 
-model.add(keras.layers.Conv2D(16, (5, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(16, (5, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(32, (5, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(32, (5, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(32, (5, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(32, (5, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 # Dense Layers
 
 model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(64, activation = 'relu'))
-model.add(keras.layers.Dense(16, activation = "relu"))
+model.add(keras.layers.Dense(128, activation = 'relu'))
+model.add(keras.layers.Dense(5, activation = "relu"))
 
 model.summary()
 
+print(train_labels)
+print(train_data)
 
 model.compile(optimizer='adam',
               loss = "mse",
@@ -70,7 +72,7 @@ model.compile(optimizer='adam',
 history = model.fit(train_data, train_labels, epochs = 100, 
                     validation_data = (valid_data, valid_labels))
 
-model.save("./my_first_model.keras")
+# model.save("./my_first_model.keras")
 
-np.save('./model_history.npy', history.history)
+# np.save('./model_history.npy', history.history)
 
