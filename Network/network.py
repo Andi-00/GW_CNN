@@ -72,7 +72,7 @@ model.compile(optimizer='adam',
 history = model.fit(train_data, train_labels, epochs = 100, 
                     validation_data = (valid_data, valid_labels))
 
-# model.save("./my_first_model.keras")
+model.save("./my_first_model.keras")
 
-# np.save('./model_history.npy', history.history)
+np.save('./model_history.npy', history.history)
 
