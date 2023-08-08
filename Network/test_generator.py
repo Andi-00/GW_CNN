@@ -1,76 +1,106 @@
 import tensorflow as tf
 from tensorflow import keras
-from sklearn.model_selection import train_test_split
-import pandas as pd
 import numpy as np
 
-class SpectrogramDataGenerator(keras.Sequence):
-    def __init__(self, csv_file_list, input_shape, num_classes, batch_size = 32, split='train', shuffle = False):
 
-        self.csv_file_list = csv_file_list
-        self.batch_size = batch_size
-        self.input_shape = input_shape
-        self.num_classes = num_classes
-        self.split = split  # 'train', 'validation', or 'test'
-        self.shuffle = shuffle
-        
-        self.indices = np.arange(len(self.csv_file_list))
+n_data = 1030
 
-        if self.shuffle:
-            np.random.shuffle(self.indices)
+# Read CSV files from List
+parameter = np.zeros((n_data, 5))
+
+for i in range((n_data - 1) // 1000 + 1):
+    parameter[1000 * i : min(1000 * (i + 1), n_data)] = np.genfromtxt("/hpcwork/cg457676/data/processed_parameter/pro_par{}.csv".format(i), delimiter = ",")[: min(1000, n_data - i * 1000)]
+
+print(parameter)
+print(parameter.shape)
+
+
+# class SpectrogramDataGenerator(keras.utils.Sequence):
+#     def __init__(self, csv_file_list, input_shape, num_classes, batch_size = 32, split='train', shuffle = False):
+
+#         self.csv_file_list = csv_file_list
+#         self.batch_size = batch_size
+#         self.input_shape = input_shape
+#         self.num_classes = num_classes
+#         self.split = split  # 'train', 'validation', or 'test'
+#         self.shuffle = shuffle
         
-        # Partition in train, validation and test data sets
-        if self.split == 'train':
-            self.indices = self.indices[:int(0.8 * len(self.indices))]
-        elif self.split == 'validation':
-            self.indices = self.indices[int(0.8 * len(self.indices)):int(0.9 * len(self.indices))]
-        elif self.split == 'test':
-            self.indices = self.indices[int(0.9 * len(self.indices)):]
+#         self.indices = np.arange(len(self.csv_file_list))
+
+#         if self.shuffle:
+#             np.random.shuffle(self.indices)
+        
+#         # Partition in train, validation and test data sets
+#         if self.split == 'train':
+#             self.indices = self.indices[:int(0.8 * len(self.indices))]
+#         elif self.split == 'validation':
+#             self.indices = self.indices[int(0.8 * len(self.indices)) : int(0.9 * len(self.indices))]
+#         elif self.split == 'test':
+#             self.indices = self.indices[int(0.9 * len(self.indices)):]
     
-    def __len__(self):
-        return int(np.ceil(len(self.csv_file_list) / self.batch_size))
+#     def __len__(self):
+#         return int(np.ceil(len(self.csv_file_list) / self.batch_size))
     
-    def __getitem__(self, index):
-        start = index * self.batch_size
-        end = (index + 1) * self.batch_size
-        batch_indices = self.indices[start:end]
+#     def __getitem__(self, index):
+#         start = index * self.batch_size
+#         end = (index + 1) * self.batch_size
+#         batch_indices = self.indices[start:end]
         
-        X = np.empty((len(batch_indices), *self.input_shape))
-        y = np.empty((len(batch_indices), self.num_classes))
+#         X = np.empty((len(batch_indices), *self.input_shape))
+#         y = np.empty((len(batch_indices), self.num_classes))
         
-        for i, idx in enumerate(batch_indices):
-            csv_file_path = self.csv_file_list[idx]
-            data = pd.read_csv(csv_file_path)  # Load your spectrogram data from the CSV file
+#         for i, idx in enumerate(batch_indices):
+#             csv_file_path = self.csv_file_list[idx]
+#             data = np.genfromtxt(csv_file_path, delimiter = ",")  # Load your spectrogram data from the CSV file
+#             label = parameter[idx]
             
-            # Preprocess and reshape your data if needed
-            # For example: spectrogram_data = preprocess(data.values)
-            #              X[i,] = spectrogram_data.reshape(self.input_shape)
+
+#             print(csv_file_path)
+#             print(idx)
             
-            # Assuming the label is in the last column of the CSV file
-            label = data.iloc[-1]
-            y[i] = label
+#             # Preprocess and reshape your data if needed
+#             # For example: spectrogram_data = preprocess(data.values)
+#             #              X[i,] = spectrogram_data.reshape(self.input_shape)
             
-        return X, y
+#             # Assuming the label is in the last column of the CSV file
+#             print(data.shape)
+#             X[i] = data
+            
+#             y[i] = label
+            
+#         return X, y
     
-    def on_epoch_end(self):
-        if self.shuffle:
-            np.random.shuffle(self.indices)
+#     def on_epoch_end(self):
+#         if self.shuffle:
+#             np.random.shuffle(self.indices)
 
+# files = ["/hpcwork/cg457676/data/Processed_Data_0/" + "pspec0_{:05}.csv".format(i) for i in range(10000)]
 
-dir = "/hcpwork/cg457676/data/Processed_Data_0/"
+# batch_size = 32
+# input_shape = (79, 2001)
+# num_classes = 5
 
-trc = 0.8
-vac = 0.1
-tec = 0.1
+# train_generator = SpectrogramDataGenerator(
+#     csv_file_list = files,
+#     batch_size = batch_size,
+#     input_shape = input_shape,
+#     num_classes = num_classes,
+#     split = 'train'
+# )
 
-files = [dir + "pspec{:05}.csv".format(i) for i in range(10000)]
+# valid_generator = SpectrogramDataGenerator(
+#     csv_file_list = files,
+#     batch_size = batch_size,
+#     input_shape = input_shape,
+#     num_classes = num_classes,
+#     split = 'validation'
+# )
 
-train_int = int(len(files) * trc)
-valid_int = int(len(files) * vac)
-test_int = int(len(files) * tec)
-
-
-train_files = files[:train_int]
-valid_files = files[train_int : train_int + valid_int]
-test_files = files[train_int + valid_int:]
+# test_generator = SpectrogramDataGenerator(
+#     csv_file_list = files,
+#     batch_size = batch_size,
+#     input_shape = input_shape,
+#     num_classes = num_classes,
+#     split = 'test'
+# )
 
