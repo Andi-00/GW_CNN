@@ -3,6 +3,26 @@ import tensorflow as tf
 import numpy as np
 from matplotlib import pyplot as plt
 
+plt.rcParams['pgf.rcfonts'] = False
+plt.rcParams['font.serif'] = []
+plt.rcParams['font.family'] = 'serif'
+plt.rcParams['text.usetex'] = True
+plt.rcParams['axes.formatter.useoffset'] = False
+plt.rcParams['lines.linewidth'] = 2
+plt.rcParams['errorbar.capsize'] = 2
+plt.rcParams['grid.linewidth'] = 0.5
+plt.rcParams['axes.labelsize'] = 18
+plt.rcParams['axes.titlesize'] = 18
+plt.rcParams['xtick.labelsize'] = 14
+plt.rcParams['ytick.labelsize'] = 14
+plt.rcParams['legend.title_fontsize'] = 14
+plt.rcParams['legend.fontsize'] = 14
+plt.rcParams['savefig.dpi'] = 300
+plt.rcParams['savefig.bbox'] = 'tight'
+plt.rcParams['savefig.pad_inches'] = 0.1
+
+#plt.rcParams['savefig.transparent'] = True
+plt.rcParams['figure.figsize'] = (10, 6)
 
 class SpectrogramDataGenerator(keras.utils.Sequence):
     def __init__(self, csv_file_list, input_shape, num_classes, batch_size = 32, split='train', shuffle = False):
@@ -41,7 +61,7 @@ class SpectrogramDataGenerator(keras.utils.Sequence):
         for i, idx in enumerate(batch_indices):
 
             csv_file_path = self.csv_file_list[idx]
-            data = np.reshape(np.genfromtxt(csv_file_path, delimiter = ","), (1, 79, 2001))  # Load your spectrogram data from the CSV file
+            data = np.reshape(np.genfromtxt(csv_file_path, delimiter = ","), (79, 2001, 1))  # Load your spectrogram data from the CSV file
             label = parameter[idx]
             
 
@@ -57,7 +77,7 @@ class SpectrogramDataGenerator(keras.utils.Sequence):
             np.random.shuffle(self.indices)
 
 # Number of datasets with n_max = 1E4
-n_data = 100
+n_data = 3000
 
 # Read CSV files (parameter and data sets)
 parameter = np.zeros((n_data, 5))
@@ -72,7 +92,7 @@ files = ["/hpcwork/cg457676/data/Processed_Data_0/" + "pspec0_{:05}.csv".format(
 # Generators for reading the data sets
 
 batch_size = 32
-input_shape = (79, 2001)
+input_shape = (79, 2001, 1)
 num_classes = 5
 
 train_generator = SpectrogramDataGenerator(
@@ -106,45 +126,55 @@ test_generator = SpectrogramDataGenerator(
 # Creating the model of the CNN
 
 model = keras.models.Sequential()
-model.add(keras.layers.Conv2D(16, (5, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model.add(keras.layers.Conv2D(16, (5, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(16, (3, 5), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(16, (3, 5), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((1,2)))
 
-model.add(keras.layers.Conv2D(32, (5, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(32, (5, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(32, (3, 7), activation = "relu"))
+model.add(keras.layers.Conv2D(32, (3, 7), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(8, (3, 5), activation = "relu"))
+model.add(keras.layers.Conv2D(8, (3, 5), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 # Dense Layers
 
 model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(128, activation = 'relu'))
+model.add(keras.layers.Dense(64, activation = 'relu'))
 model.add(keras.layers.Dense(5, activation = "relu"))
 
 model.summary()
 
+import time
+
+start = time.time()
 
 model.compile(optimizer='adam',
-              loss = "mse",
-              metrics=['mse'])
+              loss = "mean_absolute_error",
+              metrics=['mean_absolute_percentage_error'])
 
-history = model.fit_generator(generator = train_generator, epochs = 100, 
-                    validation_data = valid_generator)
+history = model.fit_generator(generator = train_generator, epochs = 20, 
+                    validation_data = valid_generator, verbose = 2)
+
+end = time.time()
+
+t = end - start
+
+print("\n10 epochs, 100 data : t = {:.0f} s - {:.1f} min".format(t, t / 60))
 
 # save the model
-model.save("./my_first_model.keras")
+model.save("./Network/run0_model.keras")
 
 # Save the history
-np.save('./model_history.npy', history.history)
+np.save('./Network/run0_history.npy', history.history)
 # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
 fig, ax = plt.subplots()
 
 ax.plot(history.history["loss"], label = "loss", color = "royalblue")
 ax.plot(history.history["val_loss"], label = "val_loss", color = "crimson")
-ax.legend(True)
+ax.legend()
+ax.grid()
 
-plt.savefig("./testplot.png")
+plt.savefig("./Network/run0_loss_plot.png")
