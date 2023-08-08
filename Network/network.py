@@ -39,22 +39,15 @@ class SpectrogramDataGenerator(keras.utils.Sequence):
         y = np.empty((len(batch_indices), self.num_classes))
         
         for i, idx in enumerate(batch_indices):
+
             csv_file_path = self.csv_file_list[idx]
-            data = np.genfromtxt(csv_file_path, delimiter = ",")  # Load your spectrogram data from the CSV file
+            data = np.reshape(np.genfromtxt(csv_file_path, delimiter = ","), (1, 79, 2001))  # Load your spectrogram data from the CSV file
             label = parameter[idx]
             
 
-            print(csv_file_path)
-            print(idx)
-            
-            # Preprocess and reshape your data if needed
-            # For example: spectrogram_data = preprocess(data.values)
-            #              X[i,] = spectrogram_data.reshape(self.input_shape)
-            
             # Assuming the label is in the last column of the CSV file
-            print(data.shape)
+
             X[i] = data
-            
             y[i] = label
             
         return X, y

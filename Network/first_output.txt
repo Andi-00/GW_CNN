@@ -1,4 +1,4 @@
-Tue Aug  8 21:46:50 CEST 2023
+Tue Aug  8 21:48:24 CEST 2023
 /home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:516: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
   _np_qint8 = np.dtype([("qint8", np.int8, 1)])
 /home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:517: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
@@ -26,6 +26,11 @@ Tue Aug  8 21:46:50 CEST 2023
 WARNING:tensorflow:From /home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
 Instructions for updating:
 Call initializer instance with the dtype argument instead of passing it to the constructor
+2023-08-08 21:48:30.128584: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+2023-08-08 21:48:30.461440: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
+2023-08-08 21:48:30.461698: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x557bd1991ce0 executing computations on platform Host. Devices:
+2023-08-08 21:48:30.461711: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+2023-08-08 21:48:30.783430: W tensorflow/compiler/jit/mark_for_compilation_pass.cc:1412] (One-time warning): Not using XLA:CPU for cluster because envvar TF_XLA_FLAGS=--tf_xla_cpu_global_jit was not set.  If you want XLA:CPU, either set that envvar, or use experimental_jit_scope to enable XLA:CPU.  To confirm that XLA is active, pass --vmodule=xla_compilation_cache=1 (as a proper command-line flag, not via TF_XLA_FLAGS) or set the envvar XLA_FLAGS=--xla_hlo_profile.
 Model: "sequential"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
@@ -58,10 +63,67 @@ Total params: 6,584,437
 Trainable params: 6,584,437
 Non-trainable params: 0
 _________________________________________________________________
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00064.csv
+64
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00065.csv
+65
+(79, 2001)
+Epoch 1/100
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00066.csv
+66
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00067.csv
+67
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00068.csv
+68
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00069.csv
+69
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00070.csv
+70
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00071.csv
+71
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00072.csv
+72
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00073.csv
+73
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00074.csv
+74
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00075.csv
+75
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00076.csv
+76
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00077.csv
+77
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00078.csv
+78
+(79, 2001)
+/hpcwork/cg457676/data/Processed_Data_0/pspec0_00079.csv
+79
+(79, 2001)
 Traceback (most recent call last):
   File "./network.py", line 142, in <module>
     validation_data = valid_generator)
-  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/keras/engine/training.py", line 597, in fit
-    raise TypeError('Unrecognized keyword arguments: ' + str(kwargs))
-TypeError: Unrecognized keyword arguments: {'generator': <__main__.SpectrogramDataGenerator object at 0x14a446ca9b10>}
-Tue Aug  8 21:47:07 CEST 2023
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/keras/engine/training.py", line 1433, in fit_generator
+    steps_name='steps_per_epoch')
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/keras/engine/training_generator.py", line 264, in model_iteration
+    batch_outs = batch_function(*batch_data)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/keras/engine/training.py", line 1153, in train_on_batch
+    extract_tensors_from_dataset=True)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/keras/engine/training.py", line 2651, in _standardize_user_data
+    exception_prefix='input')
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/keras/engine/training_utils.py", line 376, in standardize_input_data
+    'with shape ' + str(data_shape))
+ValueError: Error when checking input: expected conv2d_input to have 4 dimensions, but got array with shape (16, 79, 2001)
+Tue Aug  8 21:48:36 CEST 2023
