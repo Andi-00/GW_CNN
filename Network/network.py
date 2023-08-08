@@ -138,7 +138,7 @@ model.compile(optimizer='adam',
               loss = "mse",
               metrics=['mse'])
 
-history = model.fit(generator = train_generator, epochs = 100, 
+history = model.fit_generator(generator = train_generator, epochs = 100, 
                     validation_data = valid_generator)
 
 # save the model

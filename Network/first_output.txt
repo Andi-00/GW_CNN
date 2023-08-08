@@ -1,4 +1,4 @@
-Mon Aug  7 23:14:11 CEST 2023
+Tue Aug  8 21:46:50 CEST 2023
 /home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:516: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
   _np_qint8 = np.dtype([("qint8", np.int8, 1)])
 /home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:517: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
@@ -26,10 +26,42 @@ Mon Aug  7 23:14:11 CEST 2023
 WARNING:tensorflow:From /home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
 Instructions for updating:
 Call initializer instance with the dtype argument instead of passing it to the constructor
-2023-08-07 23:18:58.106706: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
-2023-08-07 23:18:58.212646: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
-2023-08-07 23:18:58.213810: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5569dc7f76f0 executing computations on platform Host. Devices:
-2023-08-07 23:18:58.213821: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
-2023-08-07 23:18:58.340287: W tensorflow/compiler/jit/mark_for_compilation_pass.cc:1412] (One-time warning): Not using XLA:CPU for cluster because envvar TF_XLA_FLAGS=--tf_xla_cpu_global_jit was not set.  If you want XLA:CPU, either set that envvar, or use experimental_jit_scope to enable XLA:CPU.  To confirm that XLA is active, pass --vmodule=xla_compilation_cache=1 (as a proper command-line flag, not via TF_XLA_FLAGS) or set the envvar XLA_FLAGS=--xla_hlo_profile.
-Mon Aug  7 23:19:09 CEST 2023
-slurmstepd: error: Detected 1 oom-kill event(s) in StepId=37959766.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 75, 1999, 16)      256       
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 71, 1997, 16)      3856      
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 71, 998, 16)       0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 67, 996, 32)       7712      
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 63, 994, 32)       15392     
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 31, 497, 32)       0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 29, 495, 16)       4624      
+_________________________________________________________________
+conv2d_5 (Conv2D)            (None, 27, 493, 16)       2320      
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 13, 246, 16)       0         
+_________________________________________________________________
+flatten (Flatten)            (None, 51168)             0         
+_________________________________________________________________
+dense (Dense)                (None, 128)               6549632   
+_________________________________________________________________
+dense_1 (Dense)              (None, 5)                 645       
+=================================================================
+Total params: 6,584,437
+Trainable params: 6,584,437
+Non-trainable params: 0
+_________________________________________________________________
+Traceback (most recent call last):
+  File "./network.py", line 142, in <module>
+    validation_data = valid_generator)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/keras/engine/training.py", line 597, in fit
+    raise TypeError('Unrecognized keyword arguments: ' + str(kwargs))
+TypeError: Unrecognized keyword arguments: {'generator': <__main__.SpectrogramDataGenerator object at 0x14a446ca9b10>}
+Tue Aug  8 21:47:07 CEST 2023
