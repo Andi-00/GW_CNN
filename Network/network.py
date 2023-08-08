@@ -90,3 +90,4 @@ n_data = 1000
 
 # np.save('./model_history.npy', history.history)
 
+# history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
