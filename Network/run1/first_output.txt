@@ -1,0 +1,175 @@
+Wed Aug  9 21:48:38 CEST 2023
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:516: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:517: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:518: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:519: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:520: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+WARNING:tensorflow:From /home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+Instructions for updating:
+Call initializer instance with the dtype argument instead of passing it to the constructor
+2023-08-09 21:48:52.169801: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+2023-08-09 21:48:52.287005: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
+2023-08-09 21:48:52.287186: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5609cd740ad0 executing computations on platform Host. Devices:
+2023-08-09 21:48:52.287195: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+2023-08-09 21:48:52.571748: W tensorflow/compiler/jit/mark_for_compilation_pass.cc:1412] (One-time warning): Not using XLA:CPU for cluster because envvar TF_XLA_FLAGS=--tf_xla_cpu_global_jit was not set.  If you want XLA:CPU, either set that envvar, or use experimental_jit_scope to enable XLA:CPU.  To confirm that XLA is active, pass --vmodule=xla_compilation_cache=1 (as a proper command-line flag, not via TF_XLA_FLAGS) or set the envvar XLA_FLAGS=--xla_hlo_profile.
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 77, 1999, 16)      160       
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 75, 1997, 16)      2320      
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 75, 998, 16)       0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 73, 996, 32)       4640      
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 71, 994, 32)       9248      
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 35, 497, 32)       0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 33, 495, 10)       2890      
+_________________________________________________________________
+conv2d_5 (Conv2D)            (None, 31, 493, 10)       910       
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 15, 246, 10)       0         
+_________________________________________________________________
+flatten (Flatten)            (None, 36900)             0         
+_________________________________________________________________
+dense (Dense)                (None, 32)                1180832   
+_________________________________________________________________
+dense_1 (Dense)              (None, 5)                 165       
+=================================================================
+Total params: 1,201,165
+Trainable params: 1,201,165
+Non-trainable params: 0
+_________________________________________________________________
+Epoch 1/20
+16/16 - 396s - loss: 102.2915 - mean_absolute_percentage_error: 125.0121 - val_loss: 11.1743 - val_mean_absolute_percentage_error: 89.3631
+Epoch 2/20
+16/16 - 355s - loss: 76.5224 - mean_absolute_percentage_error: 93.2961 - val_loss: 11.6958 - val_mean_absolute_percentage_error: 93.5947
+Epoch 3/20
+16/16 - 363s - loss: 75.7541 - mean_absolute_percentage_error: 91.8655 - val_loss: 11.5336 - val_mean_absolute_percentage_error: 92.6217
+Epoch 4/20
+16/16 - 361s - loss: 70.9494 - mean_absolute_percentage_error: 86.1493 - val_loss: 11.3489 - val_mean_absolute_percentage_error: 91.2512
+Epoch 5/20
+16/16 - 360s - loss: 67.3350 - mean_absolute_percentage_error: 81.6823 - val_loss: 10.2314 - val_mean_absolute_percentage_error: 81.9235
+Epoch 6/20
+16/16 - 355s - loss: 65.7173 - mean_absolute_percentage_error: 79.9664 - val_loss: 10.5423 - val_mean_absolute_percentage_error: 85.6910
+Epoch 7/20
+16/16 - 355s - loss: 62.3774 - mean_absolute_percentage_error: 75.6898 - val_loss: 11.1733 - val_mean_absolute_percentage_error: 90.0998
+Epoch 8/20
+16/16 - 339s - loss: 62.1877 - mean_absolute_percentage_error: 75.6547 - val_loss: 13.5700 - val_mean_absolute_percentage_error: 107.0212
+Epoch 9/20
+16/16 - 331s - loss: 62.1577 - mean_absolute_percentage_error: 75.5497 - val_loss: 12.2179 - val_mean_absolute_percentage_error: 97.3600
+Epoch 10/20
+16/16 - 334s - loss: 64.5435 - mean_absolute_percentage_error: 78.5233 - val_loss: 11.2559 - val_mean_absolute_percentage_error: 90.7138
+Epoch 11/20
+16/16 - 339s - loss: 61.0167 - mean_absolute_percentage_error: 74.1552 - val_loss: 11.6862 - val_mean_absolute_percentage_error: 95.0222
+Epoch 12/20
+16/16 - 335s - loss: 61.5479 - mean_absolute_percentage_error: 74.8340 - val_loss: 10.5838 - val_mean_absolute_percentage_error: 84.8893
+Epoch 13/20
+16/16 - 333s - loss: 62.6315 - mean_absolute_percentage_error: 76.0133 - val_loss: 10.8086 - val_mean_absolute_percentage_error: 86.0214
+Epoch 14/20
+16/16 - 339s - loss: 61.2116 - mean_absolute_percentage_error: 74.4587 - val_loss: 12.5234 - val_mean_absolute_percentage_error: 98.5276
+Epoch 15/20
+16/16 - 340s - loss: 58.7819 - mean_absolute_percentage_error: 71.3608 - val_loss: 13.1026 - val_mean_absolute_percentage_error: 107.8126
+Epoch 16/20
+16/16 - 327s - loss: 58.4406 - mean_absolute_percentage_error: 70.7129 - val_loss: 11.3912 - val_mean_absolute_percentage_error: 92.4100
+Epoch 17/20
+16/16 - 341s - loss: 60.6098 - mean_absolute_percentage_error: 73.6896 - val_loss: 12.1988 - val_mean_absolute_percentage_error: 99.6398
+Epoch 18/20
+16/16 - 330s - loss: 58.1786 - mean_absolute_percentage_error: 70.6930 - val_loss: 14.0072 - val_mean_absolute_percentage_error: 113.0431
+Epoch 19/20
+16/16 - 338s - loss: 57.8541 - mean_absolute_percentage_error: 70.2194 - val_loss: 11.9337 - val_mean_absolute_percentage_error: 98.9510
+Epoch 20/20
+16/16 - 339s - loss: 57.0012 - mean_absolute_percentage_error: 69.3064 - val_loss: 12.3710 - val_mean_absolute_percentage_error: 102.7861
+
+10 epochs, 100 data : t = 6908 s - 115.1 min
+Traceback (most recent call last):
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/texmanager.py", line 235, in _run_checked_subprocess
+    stderr=subprocess.STDOUT)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/subprocess.py", line 411, in check_output
+    **kwargs).stdout
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/subprocess.py", line 488, in run
+    with Popen(*popenargs, **kwargs) as process:
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/subprocess.py", line 800, in __init__
+    restore_signals, start_new_session)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/subprocess.py", line 1551, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'dvipng': 'dvipng'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "./network.py", line 180, in <module>
+    plt.savefig("./run0_loss_plot.png")
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/pyplot.py", line 977, in savefig
+    res = fig.savefig(*args, **kwargs)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/figure.py", line 3058, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 2325, in print_figure
+    **kwargs)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 1648, in wrapper
+    return func(*args, **kwargs)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/_api/deprecation.py", line 415, in wrapper
+    return func(*inner_args, **inner_kwargs)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 540, in print_png
+    FigureCanvasAgg.draw(self)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 436, in draw
+    self.figure.draw(self.renderer)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/artist.py", line 74, in draw_wrapper
+    result = draw(artist, renderer, *args, **kwargs)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/artist.py", line 51, in draw_wrapper
+    return draw(artist, renderer)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/figure.py", line 2846, in draw
+    renderer, self, artists, self.suppressComposite)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/image.py", line 132, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/artist.py", line 51, in draw_wrapper
+    return draw(artist, renderer)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/axes/_base.py", line 3092, in draw
+    renderer, self, artists, self.figure.suppressComposite)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/image.py", line 132, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/artist.py", line 51, in draw_wrapper
+    return draw(artist, renderer)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/axis.py", line 1163, in draw
+    tick.draw(renderer)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/artist.py", line 51, in draw_wrapper
+    return draw(artist, renderer)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/axis.py", line 299, in draw
+    artist.draw(renderer)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/artist.py", line 51, in draw_wrapper
+    return draw(artist, renderer)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/text.py", line 731, in draw
+    mtext=mtext)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 285, in draw_tex
+    Z = texmanager.get_grey(s, size, self.dpi)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/texmanager.py", line 310, in get_grey
+    pngfile = self.make_png(tex, fontsize, dpi)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/texmanager.py", line 298, in make_png
+    self._run_checked_subprocess(cmd, tex)
+  File "/home/cg457676/miniconda3/envs/EMRI_env/lib/python3.7/site-packages/matplotlib/texmanager.py", line 239, in _run_checked_subprocess
+    'found'.format(command[0])) from exc
+RuntimeError: Failed to process string with tex because dvipng could not be found
+Wed Aug  9 23:44:09 CEST 2023

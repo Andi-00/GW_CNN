@@ -46,6 +46,8 @@ class SpectrogramDataGenerator(keras.utils.Sequence):
             self.indices = self.indices[int(0.8 * len(self.indices)) : int(0.9 * len(self.indices))]
         elif self.split == 'test':
             self.indices = self.indices[int(0.9 * len(self.indices)):]
+
+        print(self.indices)
     
     def __len__(self):
         return int(np.ceil(len(self.csv_file_list) / self.batch_size))
@@ -77,7 +79,7 @@ class SpectrogramDataGenerator(keras.utils.Sequence):
             np.random.shuffle(self.indices)
 
 # Number of datasets with n_max = 1E4
-n_data = 3000
+n_data = 500
 
 # Read CSV files (parameter and data sets)
 parameter = np.zeros((n_data, 5))
@@ -126,16 +128,36 @@ test_generator = SpectrogramDataGenerator(
 # Creating the model of the CNN
 
 model = keras.models.Sequential()
-model.add(keras.layers.Conv2D(16, (3, 5), activation = "relu", input_shape = (79, 2001, 1)))
-model.add(keras.layers.Conv2D(16, (3, 5), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((1,2)))
+# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((1,2)))
 
-model.add(keras.layers.Conv2D(32, (3, 7), activation = "relu"))
-model.add(keras.layers.Conv2D(32, (3, 7), activation = "relu"))
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
+
+# model.add(keras.layers.Conv2D(10, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(10, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
+
+# # Dense Layers
+
+# model.add(keras.layers.Flatten())
+# model.add(keras.layers.Dense(32, activation = 'relu'))
+# model.add(keras.layers.Dense(5, activation = "relu"))
+
+
+# Test
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(8, (3, 5), activation = "relu"))
-model.add(keras.layers.Conv2D(8, (3, 5), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
+
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(8, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 # Dense Layers
@@ -144,30 +166,23 @@ model.add(keras.layers.Flatten())
 model.add(keras.layers.Dense(64, activation = 'relu'))
 model.add(keras.layers.Dense(5, activation = "relu"))
 
+
 model.summary()
 
-import time
-
-start = time.time()
 
 model.compile(optimizer='adam',
-              loss = "mean_absolute_error",
+              loss = "mean_absolute_percentage_error",
               metrics=['mean_absolute_percentage_error'])
 
-history = model.fit_generator(generator = train_generator, epochs = 20, 
+history = model.fit(train_generator, epochs = 10, 
                     validation_data = valid_generator, verbose = 2)
 
-end = time.time()
-
-t = end - start
-
-print("\n10 epochs, 100 data : t = {:.0f} s - {:.1f} min".format(t, t / 60))
 
 # save the model
-model.save("./Network/run0_model.keras")
+model.save("./run0_model.keras")
 
 # Save the history
-np.save('./Network/run0_history.npy', history.history)
+np.save('./run0_history.npy', history.history)
 # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
 fig, ax = plt.subplots()
@@ -177,4 +192,4 @@ ax.plot(history.history["val_loss"], label = "val_loss", color = "crimson")
 ax.legend()
 ax.grid()
 
-plt.savefig("./Network/run0_loss_plot.png")
+plt.savefig("./run0_loss_plot.png")
