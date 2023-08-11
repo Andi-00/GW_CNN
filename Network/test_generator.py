@@ -60,11 +60,11 @@ def data_generator(file_paths, labels, batchsize = 32, split = "train"):
         b = 1
     
     n = len(file_paths)
-    file_paths = file_paths[int(a * n) : int(b * n)]
-    labels = labels[int(a * n) : int(b * n)]
+    start = n * a
+    end = n * b
 
 
-    for i in range(0, len(file_paths), batchsize):
+    for i in range(a, b, batchsize):
         data_paths = file_paths[i : i + batchsize]
         data = np.reshape(np.array([np.genfromtxt(path, delimiter = ",") for path in data_paths]), (-1, 79, 2001, 1))
         labs = np.reshape(labels[i : i + batchsize], (-1, 5, 1))
