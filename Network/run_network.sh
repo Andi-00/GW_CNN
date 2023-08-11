@@ -8,10 +8,10 @@
 ###SBATCH --account=rwth0754
 
 ### JOBNAME
-#SBATCH --job-name=network_run_2
+#SBATCH --job-name=network_run
 
 ### OUTPUT
-#SBATCH --output=./run2.txt
+#SBATCH --output=./run0_0.txt
 
 ### your code goes here
 
@@ -21,7 +21,7 @@ export CONDA_ROOT=$HOME/miniconda3
 export PATH="$CONDA_ROOT/bin:$PATH"
 
 ### Now you can activate your configured conda environments
-conda activate EMRI_env
+conda activate tf
 
 date
 

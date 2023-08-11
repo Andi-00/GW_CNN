@@ -24,59 +24,7 @@ plt.rcParams['savefig.pad_inches'] = 0.1
 #plt.rcParams['savefig.transparent'] = True
 plt.rcParams['figure.figsize'] = (10, 6)
 
-class SpectrogramDataGenerator(keras.utils.Sequence):
-    def __init__(self, csv_file_list, input_shape, num_classes, batch_size = 32, split='train', shuffle = False):
 
-        self.csv_file_list = csv_file_list
-        self.batch_size = batch_size
-        self.input_shape = input_shape
-        self.num_classes = num_classes
-        self.split = split  # 'train', 'validation', or 'test'
-        self.shuffle = shuffle
-        
-        self.indices = np.arange(len(self.csv_file_list))
-
-        if self.shuffle:
-            np.random.shuffle(self.indices)
-        
-        # Partition in train, validation and test data sets
-        if self.split == 'train':
-            self.indices = self.indices[:int(0.8 * len(self.indices))]
-        elif self.split == 'validation':
-            self.indices = self.indices[int(0.8 * len(self.indices)) : int(0.9 * len(self.indices))]
-        elif self.split == 'test':
-            self.indices = self.indices[int(0.9 * len(self.indices)):]
-
-        print(self.indices)
-    
-    def __len__(self):
-        return int(np.ceil(len(self.csv_file_list) / self.batch_size))
-    
-    def __getitem__(self, index):
-        start = index * self.batch_size
-        end = (index + 1) * self.batch_size
-        batch_indices = self.indices[start:end]
-        
-        X = np.empty((len(batch_indices), *self.input_shape))
-        y = np.empty((len(batch_indices), self.num_classes))
-        
-        for i, idx in enumerate(batch_indices):
-
-            csv_file_path = self.csv_file_list[idx]
-            data = np.reshape(np.genfromtxt(csv_file_path, delimiter = ","), (79, 2001, 1))  # Load your spectrogram data from the CSV file
-            label = parameter[idx]
-            
-
-            # Assuming the label is in the last column of the CSV file
-
-            X[i] = data
-            y[i] = label
-            
-        return X, y
-    
-    def on_epoch_end(self):
-        if self.shuffle:
-            np.random.shuffle(self.indices)
 
 # Number of datasets with n_max = 1E4
 n_data = 500
@@ -93,36 +41,43 @@ files = ["/hpcwork/cg457676/data/Processed_Data_0/" + "pspec0_{:05}.csv".format(
 
 # Generators for reading the data sets
 
-batch_size = 32
-input_shape = (79, 2001, 1)
-num_classes = 5
-
-train_generator = SpectrogramDataGenerator(
-    csv_file_list = files,
-    batch_size = batch_size,
-    input_shape = input_shape,
-    num_classes = num_classes,
-    split = 'train'
-)
-
-valid_generator = SpectrogramDataGenerator(
-    csv_file_list = files,
-    batch_size = batch_size,
-    input_shape = input_shape,
-    num_classes = num_classes,
-    split = 'validation'
-)
-
-test_generator = SpectrogramDataGenerator(
-    csv_file_list = files,
-    batch_size = batch_size,
-    input_shape = input_shape,
-    num_classes = num_classes,
-    split = 'test'
-)
+data_input_shape = (79, 2001, 1)
+lab_inut_shape = (5, 1)
 
 
+# data generator
+def data_generator(file_paths, labels, batchsize = 32, split = "train"):
 
+    if split == "train" :
+        a = 0
+        b = 0.8
+
+    elif split == "validation":
+        a = 0.8
+        b = 0.9
+    else :
+        a = 0.9
+        b = 1
+    
+    n = len(file_paths)
+    file_paths = file_paths[int(a * n) : int(b * n)]
+    labels = labels[int(a * n) : int(b * n)]
+
+
+    for i in range(0, len(file_paths), batchsize):
+        data_paths = file_paths[i : i + batchsize]
+        data = np.reshape(np.array([np.genfromtxt(path, delimiter = ",") for path in data_paths]), (-1, 79, 2001, 1))
+        labs = np.reshape(labels[i : i + batchsize], (-1, 5, 1))
+
+        print(data.shape, labs.shape)
+
+        yield data, labs
+
+output = (tf.TensorSpec(shape = [None, *data_input_shape], dtype = tf.float64), tf.TensorSpec(shape = [None, *lab_inut_shape], dtype = tf.float64))
+
+train_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "train"), output_signature = output)
+valid_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "validation"), output_signature = output)
+test_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "test"), output_signature = output)
 
 
 # Creating the model of the CNN
@@ -150,14 +105,14 @@ model = keras.models.Sequential()
 # Test
 model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
 model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((2,2)))
+model.add(keras.layers.MaxPooling2D((1,2)))
 
 model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(8, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 # Dense Layers
@@ -171,25 +126,24 @@ model.summary()
 
 
 model.compile(optimizer='adam',
-              loss = "mean_absolute_percentage_error",
+              loss = "mse",
               metrics=['mean_absolute_percentage_error'])
 
-history = model.fit(train_generator, epochs = 10, 
-                    validation_data = valid_generator, verbose = 2)
+history = model.fit(train_generator, validation_data = valid_generator, epochs = 10, verbose = 2)
 
 
 # save the model
-model.save("./run0_model.keras")
+model.save("./model_0.keras")
 
 # Save the history
-np.save('./run0_history.npy', history.history)
+np.save('./history_0.npy', history.history)
 # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
-fig, ax = plt.subplots()
+# fig, ax = plt.subplots()
 
-ax.plot(history.history["loss"], label = "loss", color = "royalblue")
-ax.plot(history.history["val_loss"], label = "val_loss", color = "crimson")
-ax.legend()
-ax.grid()
+# ax.plot(history.history["loss"], label = "loss", color = "royalblue")
+# ax.plot(history.history["val_loss"], label = "val_loss", color = "crimson")
+# ax.legend()
+# ax.grid()
 
-plt.savefig("./run0_loss_plot.png")
+# plt.savefig("./run0_loss_plot.png")
