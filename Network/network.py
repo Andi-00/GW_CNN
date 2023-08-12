@@ -46,7 +46,7 @@ lab_inut_shape = (5, 1)
 
 
 # data generator
-def data_generator(file_paths, labels, batchsize = 10, split = "train"):
+def data_generator(file_paths, labels, batchsize = 20, split = "train"):
 
     if split == "train" :
         a = 0
@@ -68,8 +68,6 @@ def data_generator(file_paths, labels, batchsize = 10, split = "train"):
         data_paths = file_paths[i : i + batchsize]
         data = np.reshape(np.array([np.genfromtxt(path, delimiter = ",") for path in data_paths]), (-1, 79, 2001, 1))
         labs = np.reshape(labels[i : i + batchsize], (-1, 5, 1))
-
-        print(data.shape, labs.shape)
 
         yield data, labs
 
@@ -134,10 +132,10 @@ history = model.fit(train_generator, validation_data = valid_generator, epochs =
 
 
 # save the model
-model.save("./model_1.keras")
+model.save("./model_2.keras")
 
 # Save the history
-np.save('./history_1.npy', history.history)
+np.save('./history_2.npy', history.history)
 # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
 # fig, ax = plt.subplots()
