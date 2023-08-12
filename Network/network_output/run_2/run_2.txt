@@ -1,0 +1,85 @@
+Sat Aug 12 10:24:20 CEST 2023
+2023-08-12 10:24:24.153278: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-08-12 10:24:43.087605: I tensorflow/core/common_runtime/process_util.cc:146] Creating new thread pool with default inter op setting: 2. Tune using inter_op_parallelism_threads for best performance.
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 77, 1999, 32)      320       
+                                                                 
+ conv2d_1 (Conv2D)           (None, 75, 1997, 32)      9248      
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 75, 998, 32)      0         
+ )                                                               
+                                                                 
+ conv2d_2 (Conv2D)           (None, 73, 996, 64)       18496     
+                                                                 
+ conv2d_3 (Conv2D)           (None, 71, 994, 64)       36928     
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 35, 497, 64)      0         
+ 2D)                                                             
+                                                                 
+ conv2d_4 (Conv2D)           (None, 33, 495, 16)       9232      
+                                                                 
+ conv2d_5 (Conv2D)           (None, 31, 493, 16)       2320      
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, 15, 246, 16)      0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 59040)             0         
+                                                                 
+ dense (Dense)               (None, 64)                3778624   
+                                                                 
+ dense_1 (Dense)             (None, 5)                 325       
+                                                                 
+=================================================================
+Total params: 3,855,493
+Trainable params: 3,855,493
+Non-trainable params: 0
+_________________________________________________________________
+2023-08-12 10:24:43.845512: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+Epoch 1/20
+2023-08-12 10:33:25.518485: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+40/40 - 557s - loss: 369.2635 - mse: 0.7077 - val_loss: 99.9067 - val_mse: 0.3408 - 557s/epoch - 14s/step
+Epoch 2/20
+40/40 - 553s - loss: 102.3529 - mse: 0.3307 - val_loss: 100.0000 - val_mse: 0.3409 - 553s/epoch - 14s/step
+Epoch 3/20
+40/40 - 502s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 502s/epoch - 13s/step
+Epoch 4/20
+40/40 - 498s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 498s/epoch - 12s/step
+Epoch 5/20
+40/40 - 485s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 485s/epoch - 12s/step
+Epoch 6/20
+40/40 - 485s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 485s/epoch - 12s/step
+Epoch 7/20
+40/40 - 482s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 482s/epoch - 12s/step
+Epoch 8/20
+40/40 - 526s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 526s/epoch - 13s/step
+Epoch 9/20
+40/40 - 538s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 538s/epoch - 13s/step
+Epoch 10/20
+40/40 - 539s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 539s/epoch - 13s/step
+Epoch 11/20
+40/40 - 538s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 538s/epoch - 13s/step
+Epoch 12/20
+40/40 - 485s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 485s/epoch - 12s/step
+Epoch 13/20
+40/40 - 437s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 437s/epoch - 11s/step
+Epoch 14/20
+40/40 - 407s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 407s/epoch - 10s/step
+Epoch 15/20
+40/40 - 465s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 465s/epoch - 12s/step
+Epoch 16/20
+40/40 - 534s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 534s/epoch - 13s/step
+Epoch 17/20
+40/40 - 416s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 416s/epoch - 10s/step
+Epoch 18/20
+40/40 - 482s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 482s/epoch - 12s/step
+Epoch 19/20
+40/40 - 479s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 479s/epoch - 12s/step
+Epoch 20/20
+40/40 - 477s - loss: 100.0000 - mse: 0.3323 - val_loss: 100.0000 - val_mse: 0.3409 - 477s/epoch - 12s/step
+Sat Aug 12 13:09:31 CEST 2023

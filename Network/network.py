@@ -101,22 +101,22 @@ model = keras.models.Sequential()
 
 
 # Test
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((1,2)))
 
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
 model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-# Dense Layers
+# Dense Layer
 
 model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(64, activation = 'relu'))
+model.add(keras.layers.Dense(32, activation = 'relu'))
 model.add(keras.layers.Dense(5, activation = "relu"))
 
 
@@ -132,10 +132,10 @@ history = model.fit(train_generator, validation_data = valid_generator, epochs =
 
 
 # save the model
-model.save("./model_2.keras")
+model.save("./model_3.keras")
 
 # Save the history
-np.save('./history_2.npy', history.history)
+np.save('./history_3.npy', history.history)
 # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
 # fig, ax = plt.subplots()
