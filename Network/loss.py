@@ -25,9 +25,11 @@ plt.rcParams['savefig.pad_inches'] = 0.1
 plt.rcParams['figure.figsize'] = (10, 6)
 
 
-run_number = 4
 
-model = keras.models.load_model("./Network/network_output/run_{}/model_{}.keras".format(run_number, run_number))
+run_number = 6
+
+
+model = keras.models.load_model("./Network/network_output/run_{}/model_{}.keras".format(run_number, run_number), compile = False)
 history = np.load("./Network/network_output/run_{}/history_{}.npy".format(run_number, run_number), allow_pickle='TRUE').item()
 
 n_test = 100
@@ -75,12 +77,13 @@ print(values)
 
 np.savetxt("./Network/network_output/run_{}/eval_{}.csv".format(run_number, run_number), values, delimiter = ",", fmt="%s")
 
-epochs = np.arange(1, 41)
+epochs = np.arange(1, 21)
 
 fig, ax = plt.subplots()
 ax.plot(epochs, history["loss"], color = "#e60049", label = "training")
 ax.plot(epochs, history["val_loss"], color = "royalblue", label = "validation")
 
+ax.set_ylim(0, 1)
 
 ax.set_xlabel("Epochs")
 ax.set_ylabel("Mean Squared Error")

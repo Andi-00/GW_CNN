@@ -8,10 +8,10 @@
 ###SBATCH --account=rwth0754
 
 ### JOBNAME
-#SBATCH --job-name=network_run
+#SBATCH --job-name=network_run_7
 
 ### OUTPUT
-#SBATCH --output=./Network/network_output/run_5/run_5.txt
+#SBATCH --output=./network_output/run_7/run_7.txt
 
 ### your code goes here
 

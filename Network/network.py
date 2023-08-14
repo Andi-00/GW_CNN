@@ -27,7 +27,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 
 
 # Number of datasets with n_max = 1E4
-n_data = 1000
+n_data = 100
 
 # Read CSV files (parameter and data sets)
 parameter = np.zeros((n_data, 5))
@@ -36,7 +36,7 @@ for i in range((n_data - 1) // 1000 + 1):
     parameter[1000 * i : min(1000 * (i + 1), n_data)] = np.genfromtxt("/hpcwork/cg457676/data/processed_parameter/pro_par{}.csv".format(i), delimiter = ",")[: min(1000, n_data - i * 1000)]
 
 
-files = ["/hpcwork/cg457676/data/Processed_Data/" + "pspec_{:05}.csv".format(i) for i in range(n_data)]
+files = ["/hpcwork/cg457676/data/Processed_Data_0/" + "pspec0_{:05}.csv".format(i) for i in range(n_data)]
 
 
 # Generators for reading the data sets
@@ -134,20 +134,22 @@ def custom_loss(y_true, y_pred):
 
 model.compile(optimizer='adam',
               loss = custom_loss,
-              metrics=['mse'])
+              metrics=["mse"])
 
 
-history = model.fit(train_generator, validation_data = valid_generator, epochs = 10, verbose = 2)
+history = model.fit(train_generator, validation_data = valid_generator, epochs = 20, verbose = 2)
 
+eval = model.evaluate(test_generator)
 
+print(eval)
 
-run_number = 5
+run_number = 7
 
 # save the model
-model.save("./Network/network_output/run_{}/model_{}.keras".format(run_number, run_number))
+model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
 
 # Save the history
-np.save('./Network/network_output/run_{}/history_{}.npy'.format(run_number, run_number), history.history)
+np.save('./network_output/run_{}/history_{}.npy'.format(run_number, run_number), history.history)
 # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
 # fig, ax = plt.subplots()
