@@ -11,7 +11,7 @@
 #SBATCH --job-name=network_run
 
 ### OUTPUT
-#SBATCH --output=./run_4.txt
+#SBATCH --output=./Network/network_output/run_5/run_5.txt
 
 ### your code goes here
 

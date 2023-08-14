@@ -101,41 +101,53 @@ model = keras.models.Sequential()
 
 
 # Test
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((1,2)))
+model.add(keras.layers.Conv2D(32, (5, 13), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(32, (5, 13), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,4)))
 
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((2,2)))
+model.add(keras.layers.Conv2D(64, (3, 13), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 13), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,4)))
 
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(128, (3, 9), activation = "relu"))
+model.add(keras.layers.Conv2D(128, (3, 9), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 # Dense Layer
 
 model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(32, activation = 'relu'))
+model.add(keras.layers.Dense(64, activation = 'relu'))
+model.add(keras.layers.Dense(64, activation = 'relu'))
 model.add(keras.layers.Dense(5, activation = "relu"))
 
 
 model.summary()
 
+def custom_loss(y_true, y_pred):
+    val = tf.constant([4.0, 1.0, 0.0, 0.1, 10.0])
+    val = y_true + val
+
+    metric = tf.math.abs(y_true - y_pred) / val
+
+    return tf.reduce_mean(metric, axis = -1)    
+
 
 model.compile(optimizer='adam',
-              loss = "mse",
-              metrics=['mean_absolute_percentage_error'])
+              loss = custom_loss,
+              metrics=['mse'])
 
 
-history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
+history = model.fit(train_generator, validation_data = valid_generator, epochs = 10, verbose = 2)
 
+
+
+run_number = 5
 
 # save the model
-model.save("./model_4.keras")
+model.save("./Network/network_output/run_{}/model_{}.keras".format(run_number, run_number))
 
 # Save the history
-np.save('./history_4.npy', history.history)
+np.save('./Network/network_output/run_{}/history_{}.npy'.format(run_number, run_number), history.history)
 # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
 # fig, ax = plt.subplots()
