@@ -1,0 +1,85 @@
+Sat Aug 12 22:31:24 CEST 2023
+2023-08-12 22:31:24.883846: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-08-12 22:31:38.023037: I tensorflow/core/common_runtime/process_util.cc:146] Creating new thread pool with default inter op setting: 2. Tune using inter_op_parallelism_threads for best performance.
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 77, 1999, 16)      160       
+                                                                 
+ conv2d_1 (Conv2D)           (None, 75, 1997, 16)      2320      
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 75, 998, 16)      0         
+ )                                                               
+                                                                 
+ conv2d_2 (Conv2D)           (None, 73, 996, 16)       2320      
+                                                                 
+ conv2d_3 (Conv2D)           (None, 71, 994, 16)       2320      
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 35, 497, 16)      0         
+ 2D)                                                             
+                                                                 
+ conv2d_4 (Conv2D)           (None, 33, 495, 16)       2320      
+                                                                 
+ conv2d_5 (Conv2D)           (None, 31, 493, 16)       2320      
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, 15, 246, 16)      0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 59040)             0         
+                                                                 
+ dense (Dense)               (None, 32)                1889312   
+                                                                 
+ dense_1 (Dense)             (None, 5)                 165       
+                                                                 
+=================================================================
+Total params: 1,901,237
+Trainable params: 1,901,237
+Non-trainable params: 0
+_________________________________________________________________
+2023-08-12 22:31:38.311764: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+Epoch 1/20
+2023-08-12 22:34:55.733341: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+40/40 - 218s - loss: 0.3530 - mean_absolute_percentage_error: 439.5452 - val_loss: 0.3107 - val_mean_absolute_percentage_error: 1930.4917 - 218s/epoch - 5s/step
+Epoch 2/20
+40/40 - 195s - loss: 0.2709 - mean_absolute_percentage_error: 327.7051 - val_loss: 0.2633 - val_mean_absolute_percentage_error: 628.2461 - 195s/epoch - 5s/step
+Epoch 3/20
+40/40 - 195s - loss: 0.2504 - mean_absolute_percentage_error: 360.9723 - val_loss: 0.2546 - val_mean_absolute_percentage_error: 332.9928 - 195s/epoch - 5s/step
+Epoch 4/20
+40/40 - 204s - loss: 0.2403 - mean_absolute_percentage_error: 332.8069 - val_loss: 0.2450 - val_mean_absolute_percentage_error: 319.2093 - 204s/epoch - 5s/step
+Epoch 5/20
+40/40 - 198s - loss: 0.2326 - mean_absolute_percentage_error: 350.4454 - val_loss: 0.2416 - val_mean_absolute_percentage_error: 345.8387 - 198s/epoch - 5s/step
+Epoch 6/20
+40/40 - 199s - loss: 0.2308 - mean_absolute_percentage_error: 334.2103 - val_loss: 0.2405 - val_mean_absolute_percentage_error: 287.8448 - 199s/epoch - 5s/step
+Epoch 7/20
+40/40 - 201s - loss: 0.2236 - mean_absolute_percentage_error: 328.8026 - val_loss: 0.2390 - val_mean_absolute_percentage_error: 313.2816 - 201s/epoch - 5s/step
+Epoch 8/20
+40/40 - 209s - loss: 0.2218 - mean_absolute_percentage_error: 333.7747 - val_loss: 0.2418 - val_mean_absolute_percentage_error: 411.8091 - 209s/epoch - 5s/step
+Epoch 9/20
+40/40 - 211s - loss: 0.2232 - mean_absolute_percentage_error: 335.0949 - val_loss: 0.2388 - val_mean_absolute_percentage_error: 278.3088 - 211s/epoch - 5s/step
+Epoch 10/20
+40/40 - 214s - loss: 0.2165 - mean_absolute_percentage_error: 293.0619 - val_loss: 0.2452 - val_mean_absolute_percentage_error: 517.8148 - 214s/epoch - 5s/step
+Epoch 11/20
+40/40 - 213s - loss: 0.2114 - mean_absolute_percentage_error: 282.0324 - val_loss: 0.2399 - val_mean_absolute_percentage_error: 654.1786 - 213s/epoch - 5s/step
+Epoch 12/20
+40/40 - 217s - loss: 0.2048 - mean_absolute_percentage_error: 247.8780 - val_loss: 0.2348 - val_mean_absolute_percentage_error: 812.3310 - 217s/epoch - 5s/step
+Epoch 13/20
+40/40 - 218s - loss: 0.2083 - mean_absolute_percentage_error: 245.7678 - val_loss: 0.2618 - val_mean_absolute_percentage_error: 195.2051 - 218s/epoch - 5s/step
+Epoch 14/20
+40/40 - 216s - loss: 0.2118 - mean_absolute_percentage_error: 248.4326 - val_loss: 0.2437 - val_mean_absolute_percentage_error: 191.5095 - 216s/epoch - 5s/step
+Epoch 15/20
+40/40 - 216s - loss: 0.2047 - mean_absolute_percentage_error: 244.9812 - val_loss: 0.2594 - val_mean_absolute_percentage_error: 143.1391 - 216s/epoch - 5s/step
+Epoch 16/20
+40/40 - 215s - loss: 0.2043 - mean_absolute_percentage_error: 201.6623 - val_loss: 0.2404 - val_mean_absolute_percentage_error: 586.0602 - 215s/epoch - 5s/step
+Epoch 17/20
+40/40 - 217s - loss: 0.2011 - mean_absolute_percentage_error: 199.1931 - val_loss: 0.2393 - val_mean_absolute_percentage_error: 276.8234 - 217s/epoch - 5s/step
+Epoch 18/20
+40/40 - 209s - loss: 0.1955 - mean_absolute_percentage_error: 171.7624 - val_loss: 0.2374 - val_mean_absolute_percentage_error: 298.6084 - 209s/epoch - 5s/step
+Epoch 19/20
+40/40 - 214s - loss: 0.1863 - mean_absolute_percentage_error: 145.5607 - val_loss: 0.2432 - val_mean_absolute_percentage_error: 180.0294 - 214s/epoch - 5s/step
+Epoch 20/20
+40/40 - 214s - loss: 0.1920 - mean_absolute_percentage_error: 116.1235 - val_loss: 0.2374 - val_mean_absolute_percentage_error: 175.6393 - 214s/epoch - 5s/step
+Sat Aug 12 23:41:32 CEST 2023

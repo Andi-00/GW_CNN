@@ -46,7 +46,7 @@ lab_inut_shape = (5, 1)
 
 
 # data generator
-def data_generator(file_paths, labels, batchsize = 20, split = "train"):
+def data_generator(file_paths, labels, split = "train", batchsize = 20):
 
     if split == "train" :
         a = 0
@@ -60,14 +60,14 @@ def data_generator(file_paths, labels, batchsize = 20, split = "train"):
         b = 1
     
     n = len(file_paths)
-    file_paths = file_paths[int(a * n) : int(b * n)]
-    labels = labels[int(a * n) : int(b * n)]
+    file_pth = file_paths[int(a * n) : int(b * n)]
+    lab = labels[int(a * n) : int(b * n)]
 
-    for i in range(0, len(file_paths), batchsize):
+    for i in range(0, len(file_pth), batchsize):
 
-        data_paths = file_paths[i : i + batchsize]
+        data_paths = file_pth[i : i + batchsize]
         data = np.reshape(np.array([np.genfromtxt(path, delimiter = ",") for path in data_paths]), (-1, 79, 2001, 1))
-        labs = np.reshape(labels[i : i + batchsize], (-1, 5, 1))
+        labs = np.reshape(lab[i : i + batchsize], (-1, 5, 1))
 
         yield data, labs
 
@@ -101,12 +101,12 @@ model = keras.models.Sequential()
 
 
 # Test
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((1,2)))
 
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
@@ -124,18 +124,18 @@ model.summary()
 
 
 model.compile(optimizer='adam',
-              loss = "mean_absolute_percentage_error",
-              metrics=['mse'])
+              loss = "mse",
+              metrics=['mean_absolute_percentage_error'])
 
 
-history = model.fit(train_generator, validation_data = valid_generator, epochs = 20, verbose = 2)
+history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
 
 
 # save the model
-model.save("./model_3.keras")
+model.save("./model_4.keras")
 
 # Save the history
-np.save('./history_3.npy', history.history)
+np.save('./history_4.npy', history.history)
 # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
 # fig, ax = plt.subplots()
