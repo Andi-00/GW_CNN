@@ -54,3 +54,7 @@ Network/network_output/run_8/history_8.npy
 Network/network_output/run_8/loss.png
 Network/network_output/run_8/model_8.keras
 Network/network_output/run_8/run_8.txt
+Network/network_output/run_11/0eval_11.csv
+Network/network_output/run_11/deltas.txt
+Network/network_output/run_11/predict.txt
+Network/network_output/run_12/run_12.txt
