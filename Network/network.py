@@ -27,7 +27,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 
 
 # Number of datasets with n_max = 1E4
-n_data = 100
+n_data = 3000
 
 # Read CSV files (parameter and data sets)
 parameter = np.zeros((n_data, 5))
