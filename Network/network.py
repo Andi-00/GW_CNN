@@ -142,8 +142,8 @@ def custom_loss(y_true, y_pred):
 
 
 model.compile(optimizer='adam',
-              loss = custom_loss,
-              metrics=["mse"])
+              loss = "mse",
+              metrics=[custom_loss])
 
 
 history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
@@ -152,7 +152,7 @@ eval = model.evaluate(test_generator)
 
 print(eval)
 
-run_number = 12
+run_number = 13
 
 # save the model
 model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
