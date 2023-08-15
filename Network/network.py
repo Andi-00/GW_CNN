@@ -27,7 +27,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 
 
 # Number of datasets with n_max = 1E4
-n_data = 3000
+n_data = 100
 
 # Read CSV files (parameter and data sets)
 parameter = np.zeros((n_data, 5))
@@ -36,7 +36,7 @@ for i in range((n_data - 1) // 1000 + 1):
     parameter[1000 * i : min(1000 * (i + 1), n_data)] = np.genfromtxt("/hpcwork/cg457676/data/processed_parameter/pro_par{}.csv".format(i), delimiter = ",")[: min(1000, n_data - i * 1000)]
 
 
-files = ["/hpcwork/cg457676/data/Processed_Data_0/" + "pspec0_{:05}.csv".format(i) for i in range(n_data)]
+files = ["/hpcwork/cg457676/data/Processed_Data/" + "pspec_{:05}.csv".format(i) for i in range(n_data)]
 
 
 # Generators for reading the data sets
@@ -102,30 +102,28 @@ model.add(keras.layers.Dense(5, activation = "relu"))
 
 
 # Test Locally connected
-# model.add(keras.layers.Conv2D(32, (3, 5), activation = "relu", input_shape = (79, 2001, 1)))
-# model.add(keras.layers.Conv2D(32, (3, 5), activation = "relu"))
-# model.add(keras.layers.AveragePooling2D((1,4)))
+# model = keras.models.Sequential()
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,6)))
 
-# model.add(keras.layers.Conv2D(64, (3, 5), activation = "relu"))
-# model.add(keras.layers.Conv2D(64, (3, 5), activation = "relu"))
-# model.add(keras.layers.AveragePooling2D((2,4)))
-
-
-# model.add(keras.layers.Conv2D(128, (3, 5), activation = "relu"))
-# model.add(keras.layers.Conv2D(128, (3, 5), activation = "relu"))
-# model.add(keras.layers.AveragePooling2D((2,4)))
+# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,6)))
 
 # model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
 # model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model.add(keras.layers.AveragePooling2D((2,2)))
+# model.add(keras.layers.MaxPooling2D((1,4)))
 
-# model.add(keras.layers.LocallyConnected2D(64, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model.add(keras.layers.LocallyConnected2D(128, (3, 3), activation = "relu"))
 
 # # Dense Layer
 
 # model.add(keras.layers.Flatten())
-# model.add(keras.layers.Dense(64, activation = 'relu'))
-# model.add(keras.layers.Dense(64, activation = 'relu'))
+# model.add(keras.layers.Dense(128, activation = 'relu'))
+# model.add(keras.layers.Dense(128, activation = 'relu'))
 # model.add(keras.layers.Dense(5, activation = "relu"))
 
 
@@ -154,7 +152,7 @@ eval = model.evaluate(test_generator)
 
 print(eval)
 
-run_number = 11
+run_number = 12
 
 # save the model
 model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
