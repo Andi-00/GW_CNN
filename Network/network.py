@@ -27,7 +27,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 
 
 # Number of datasets with n_max = 1E4
-n_data = 100
+n_data = 3000
 
 # Read CSV files (parameter and data sets)
 parameter = np.zeros((n_data, 5))
@@ -81,42 +81,45 @@ test_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, p
 # Creating the model of the CNN
 
 model = keras.models.Sequential()
-model.add(keras.layers.Conv2D(32, (3, 11), activation = "relu", input_shape = (79, 2001, 1)))
-model.add(keras.layers.Conv2D(32, (3, 11), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((1,2)))
-
-model.add(keras.layers.Conv2D(64, (3, 11), activation = "relu"))
-model.add(keras.layers.Conv2D(64, (3, 11), activation = "relu"))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(128, (3, 11), activation = "relu"))
-model.add(keras.layers.Conv2D(128, (3, 11), activation = "relu"))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(64, (3, 11), activation = "relu"))
-model.add(keras.layers.Conv2D(64, (3, 11), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 # Dense Layers
 
 model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(128, activation = 'relu'))
-model.add(keras.layers.Dense(128, activation = 'relu'))
+model.add(keras.layers.Dense(64, activation = 'relu'))
+model.add(keras.layers.Dense(64, activation = 'relu'))
 model.add(keras.layers.Dense(5, activation = "relu"))
 
 
-# Test
-# model.add(keras.layers.Conv2D(32, (5, 13), activation = "relu", input_shape = (79, 2001, 1)))
-# model.add(keras.layers.Conv2D(32, (5, 13), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,4)))
+# Test Locally connected
+# model.add(keras.layers.Conv2D(32, (3, 5), activation = "relu", input_shape = (79, 2001, 1)))
+# model.add(keras.layers.Conv2D(32, (3, 5), activation = "relu"))
+# model.add(keras.layers.AveragePooling2D((1,4)))
 
-# model.add(keras.layers.Conv2D(64, (3, 13), activation = "relu"))
-# model.add(keras.layers.Conv2D(64, (3, 13), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,4)))
+# model.add(keras.layers.Conv2D(64, (3, 5), activation = "relu"))
+# model.add(keras.layers.Conv2D(64, (3, 5), activation = "relu"))
+# model.add(keras.layers.AveragePooling2D((2,4)))
 
-# model.add(keras.layers.Conv2D(128, (3, 9), activation = "relu"))
-# model.add(keras.layers.Conv2D(128, (3, 9), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
+
+# model.add(keras.layers.Conv2D(128, (3, 5), activation = "relu"))
+# model.add(keras.layers.Conv2D(128, (3, 5), activation = "relu"))
+# model.add(keras.layers.AveragePooling2D((2,4)))
+
+# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model.add(keras.layers.AveragePooling2D((2,2)))
+
+# model.add(keras.layers.LocallyConnected2D(64, (3, 3), activation = "relu"))
 
 # # Dense Layer
 
@@ -126,6 +129,8 @@ model.add(keras.layers.Dense(5, activation = "relu"))
 # model.add(keras.layers.Dense(5, activation = "relu"))
 
 
+
+
 model.summary()
 
 def custom_loss(y_true, y_pred):
@@ -133,6 +138,7 @@ def custom_loss(y_true, y_pred):
     val = y_true + val
 
     metric = tf.math.abs(y_true - y_pred) / val
+
 
     return tf.reduce_mean(metric, axis = -1)
 
@@ -148,7 +154,7 @@ eval = model.evaluate(test_generator)
 
 print(eval)
 
-run_number = 9
+run_number = 11
 
 # save the model
 model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
