@@ -17,3 +17,7 @@ for i in range(0, len(data), 20):
 
     predict[i : i + 20] = model.predict(spec)
 
+delta = predict - data
+
+M = delta[:, 0]
+d = delta[:, 1]
