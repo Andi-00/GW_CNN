@@ -142,7 +142,7 @@ def custom_loss(y_true, y_pred):
 
 
 model.compile(optimizer='adam',
-              loss = "mse",
+              loss = "mean_absolute_percentage_error",
               metrics=[custom_loss])
 
 
@@ -152,7 +152,7 @@ eval = model.evaluate(test_generator)
 
 print(eval)
 
-run_number = 13
+run_number = 14
 
 # save the model
 model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
