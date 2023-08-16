@@ -26,7 +26,7 @@ plt.rcParams['savefig.pad_inches'] = 0.1
 plt.rcParams['figure.figsize'] = (10, 6)
 
 # Load the model
-n_run = 12
+n_run = 13
 
 model = keras.models.load_model("./Network/network_output/run_{}/model_{}.keras".format(n_run, n_run), compile = False)
 
@@ -63,35 +63,35 @@ delp = 6 * delta[:, 4]
 # print(min(dele), max(dele), np.mean(dele))
 # print(min(delp), max(delp), np.mean(delp))
 
-# hists = [delM, deld, dela, dele, delp]
-# names = ["mass", "dist", "spin", "ecc", "sep"]
-# axlabs = ["$M_\mathrm{prediction} - M_\mathrm{true}$", "$d_\mathrm{prediction} - d_\mathrm{true}$",
-#           "$a_\mathrm{prediction} - a_\mathrm{true}$", "$e_\mathrm{prediction} - e_\mathrm{true}$",
-#           "$p_\mathrm{prediction} - p_\mathrm{true}$"]
+hists = [delM, deld, dela, dele, delp]
+names = ["mass", "dist", "spin", "ecc", "sep"]
+axlabs = ["$M_\mathrm{prediction} - M_\mathrm{true}$", "$d_\mathrm{prediction} - d_\mathrm{true}$",
+          "$a_\mathrm{prediction} - a_\mathrm{true}$", "$e_\mathrm{prediction} - e_\mathrm{true}$",
+          "$p_\mathrm{prediction} - p_\mathrm{true}$"]
 
-# for i in range(len(hists)):
+for i in range(len(hists)):
 
-#     width = max(hists[i]) - min(hists[i])
-#     max_err = max(np.abs(hists[i]))
-#     binw = width / 13
+    width = max(hists[i]) - min(hists[i])
+    max_err = max(np.abs(hists[i]))
+    binw = width / 13
 
-#     bi = (np.arange(-8, 8) + 0.5) * max_err / 8
+    bi = (np.arange(-8, 8) + 0.5) * max_err / 8
 
-#     mean = np.mean(hists[i])
-#     std = np.std(hists[i], ddof = 1)
+    mean = np.mean(hists[i])
+    std = np.std(hists[i], ddof = 1)
 
-#     print(mean, std)
+    print(mean, std)
 
-#     fig, ax = plt.subplots()
-#     ax.hist(hists[i], bins = bi, color = "#e60049", edgecolor = "black")
-#     ax.axvline(mean, ls = "--", color = "black", label = "$\mu = $" + " {:.3f}".format(mean), zorder = 10)
-#     ax.axvline(mean + std, ls = ":", color = "black", label = "$\sigma = $" + " {:.3f}".format(std), zorder = 10)
-#     ax.axvline(mean - std, ls = ":", color = "black", zorder = 10)
+    fig, ax = plt.subplots()
+    ax.hist(hists[i], bins = bi, color = "#e60049", edgecolor = "black")
+    ax.axvline(mean, ls = "--", color = "black", label = "$\mu = $" + " {:.3f}".format(mean), zorder = 10)
+    ax.axvline(mean + std, ls = ":", color = "black", label = "$\sigma = $" + " {:.3f}".format(std), zorder = 10)
+    ax.axvline(mean - std, ls = ":", color = "black", zorder = 10)
 
-#     ax.set_ylabel("Number of Counts")
-#     ax.set_xlabel(axlabs[i])
-#     ax.set_title("Deviation of the Prediction and Input", y = 1.02)
+    ax.set_ylabel("Number of Counts")
+    ax.set_xlabel(axlabs[i])
+    ax.set_title("Deviation of the Prediction and Input", y = 1.02)
 
-#     ax.legend()
+    ax.legend()
 
-#     plt.savefig("./Network/network_output/run_{}/hists/r{}_hist_{}.png".format(n_run, n_run, names[i]))
+    plt.savefig("./Network/network_output/run_{}/hists/r{}_hist_{}.png".format(n_run, n_run, names[i]))

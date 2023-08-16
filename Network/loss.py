@@ -26,7 +26,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 
 
 
-run_number = 11
+run_number = 13
 
 
 model = keras.models.load_model("./Network/network_output/run_{}/model_{}.keras".format(run_number, run_number), compile = False)
@@ -40,7 +40,7 @@ predict = np.ones_like(data)
 
 for i in range(0, n_test, 20):
     print(i)
-    spec = np.reshape(np.array([np.genfromtxt("/hpcwork/cg457676/data/Processed_Data_0/pspec0_{:05}.csv".format(9000 + i + j), delimiter = ",") for j in range(20)]), (-1, 79, 2001, 1))
+    spec = np.reshape(np.array([np.genfromtxt("/hpcwork/cg457676/data/Processed_Data/pspec_{:05}.csv".format(9000 + i + j), delimiter = ",") for j in range(20)]), (-1, 79, 2001, 1))
 
     predict[i : i + 20] = model.predict(spec)
 
@@ -75,7 +75,7 @@ values[1:, 2] = per
 
 print(values)
 
-np.savetxt("./Network/network_output/run_{}/0eval_{}.csv".format(run_number, run_number), values, delimiter = ",", fmt="%s")
+np.savetxt("./Network/network_output/run_{}/eval_{}.csv".format(run_number, run_number), values, delimiter = ",", fmt="%s")
 
 epochs = np.arange(1, 41)
 
@@ -84,7 +84,7 @@ ax.plot(epochs, history["loss"], color = "#e60049", label = "training")
 ax.plot(epochs, history["val_loss"], color = "royalblue", label = "validation")
 
 ax.set_xlabel("Epochs")
-ax.set_ylabel("Mean Relative Error")
+ax.set_ylabel("Mean Squared Error")
 ax.set_title("Evaluation of run_{}".format(run_number), y = 1.02)
 ax.legend()
 ax.grid()
