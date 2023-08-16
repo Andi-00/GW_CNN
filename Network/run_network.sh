@@ -2,7 +2,7 @@
 
 
 ### TIME 
-#SBATCH --time=20:00:00
+#SBATCH --time=60:00:00
 
 ### ACCOUNT
 ###SBATCH --account=rwth0754

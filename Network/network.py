@@ -27,7 +27,9 @@ plt.rcParams['figure.figsize'] = (10, 6)
 
 
 # Number of datasets with n_max = 1E4
-n_data = 3000
+n_data = 10000
+
+tf.random.set_seed(1234)
 
 # Read CSV files (parameter and data sets)
 parameter = np.zeros((n_data, 5))
@@ -142,11 +144,11 @@ def custom_loss(y_true, y_pred):
 
 
 model.compile(optimizer='adam',
-              loss = "mean_absolute_percentage_error",
+              loss = "mse",
               metrics=[custom_loss])
 
 
-history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
+history = model.fit(train_generator, validation_data = valid_generator, epochs = 50, verbose = 2)
 
 eval = model.evaluate(test_generator)
 
