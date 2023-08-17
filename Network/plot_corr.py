@@ -25,7 +25,7 @@ plt.rcParams['savefig.pad_inches'] = 0.1
 plt.rcParams['figure.figsize'] = (10, 6)
 
 
-n_run = 13
+n_run = 14
 
 data = pd.read_csv("./Network/network_output/run_{}/deltas.txt".format(n_run), delimiter = ",", names = ["Mass", "Distance", "Spin", "Eccentricity", "Seperation"])
 
