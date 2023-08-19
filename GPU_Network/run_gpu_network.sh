@@ -2,7 +2,7 @@
 
 
 ### TIME 
-#SBATCH --time=00:20:00
+#SBATCH --time=02:00:00
 
 ### GPU
 #SBATCH --gres=gpu:volta:1
@@ -26,8 +26,6 @@ export PATH="$CONDA_ROOT/bin:$PATH"
 
 ### Now you can activate your configured conda environments
 conda activate gpu_tf
-module load GCCcore/.9.3.0
-module load cuDNN/8.1.1.33-CUDA-11.2.1
 
 date
 

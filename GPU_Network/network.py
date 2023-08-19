@@ -2,6 +2,7 @@ from tensorflow import keras
 import tensorflow as tf
 import numpy as np
 
+print("here")
 
 # Number of datasets with n_max = 1E4
 n_data = 3000
@@ -49,6 +50,8 @@ def data_generator(file_paths, labels, split = "train", batchsize = 20):
         labs = np.reshape(lab[i : i + batchsize], (-1, 5, 1))
 
         yield data, labs
+
+print("hi")
 
 output = (tf.TensorSpec(shape = [None, *data_input_shape], dtype = tf.float64), tf.TensorSpec(shape = [None, *lab_inut_shape], dtype = tf.float64))
 
