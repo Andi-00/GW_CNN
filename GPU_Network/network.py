@@ -27,7 +27,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 
 
 # Number of datasets with n_max = 1E4
-n_data = 1000
+n_data = 3000
 
 tf.random.set_seed(1234)
 
@@ -148,7 +148,7 @@ model.compile(optimizer='adam',
               metrics=[custom_loss])
 
 
-history = model.fit(train_generator, validation_data = valid_generator, epochs = 50, verbose = 2)
+history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
 
 eval = model.evaluate(test_generator)
 
@@ -157,17 +157,10 @@ print(eval)
 run_number = 14
 
 # save the model
-model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
+# model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
 
-# Save the history
-np.save('./network_output/run_{}/history_{}.npy'.format(run_number, run_number), history.history)
-# history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
+# # Save the history
+# np.save('./network_output/run_{}/history_{}.npy'.format(run_number, run_number), history.history)
 
-# fig, ax = plt.subplots()
-
-# ax.plot(history.history["loss"], label = "loss", color = "royalblue")
-# ax.plot(history.history["val_loss"], label = "val_loss", color = "crimson")
-# ax.legend()
-# ax.grid()
-
-# plt.savefig("./run0_loss_plot.png")
+model.save("./gpu_model_test.keras")
+np.save("./gpu_history.npy")
