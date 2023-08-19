@@ -31,6 +31,6 @@ module load cuDNN/8.1.1.33-CUDA-11.2.1
 
 date
 
-python ./test_gpu.py
+python ./network.py
 
 date
