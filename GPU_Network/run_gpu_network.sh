@@ -2,7 +2,7 @@
 
 
 ### TIME 
-#SBATCH --time=8:00:00
+#SBATCH --time=00:20:00
 
 ### GPU
 #SBATCH --gres=gpu:volta:1
@@ -25,12 +25,12 @@ export CONDA_ROOT=$HOME/miniconda3
 export PATH="$CONDA_ROOT/bin:$PATH"
 
 ### Now you can activate your configured conda environments
-conda activate tf
+conda activate gpu_tf
 module load GCCcore/.9.3.0
 module load cuDNN/8.1.1.33-CUDA-11.2.1
 
 date
 
-python ./network.py
+python ./test_gpu.py
 
 date

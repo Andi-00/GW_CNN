@@ -1,0 +1,35 @@
+[INFO] Module zlib/1.2.12 loaded.
+[INFO] Module binutils/2.38 loaded.
+[INFO] Module numactl/2.0.14 loaded.
+[INFO] Module GCCcore/.9.3.0 loaded.
+[INFO] Module zlib/1.2.12 loaded.
+[INFO] Module binutils/2.38 loaded.
+
+Inactive Modules:
+  1) UCX/1.12.1
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) binutils/2.38     2) numactl/2.0.14     3) zlib/1.2.12
+
+The following have been reloaded with a version change:
+  1) GCCcore/.11.3.0 => GCCcore/.9.3.0
+
+[INFO] Module cuDNN/8.1.1.33-CUDA-11.2.1 loaded.
+Sat Aug 19 13:20:16 CEST 2023
+2023-08-19 13:20:22.357406: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2023-08-19 13:20:37.572450: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2023-08-19 13:20:37.577345: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2023-08-19 13:20:43.267290: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:61:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.77GiB deviceMemoryBandwidth: 836.37GiB/s
+2023-08-19 13:20:43.267315: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2023-08-19 13:20:43.467224: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.10
+2023-08-19 13:20:43.467261: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.10
+2023-08-19 13:20:43.590446: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2023-08-19 13:20:43.622561: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2023-08-19 13:20:43.812801: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2023-08-19 13:20:43.849135: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.10
+2023-08-19 13:20:44.201768: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.7
+2023-08-19 13:20:44.202251: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+Num GPUs Available:  1
+Sat Aug 19 13:20:45 CEST 2023
