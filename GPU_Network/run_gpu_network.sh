@@ -19,16 +19,18 @@
 
 ### your code goes here
 
-### Insert this AFTER the #SLURM argument section of your job script
-export CONDA_ROOT=$HOME/miniconda3
-. $CONDA_ROOT/etc/profile.d/conda.sh
-export PATH="$CONDA_ROOT/bin:$PATH"
 
-### Now you can activate your configured conda environments
-conda activate gpu_tf
+
+date
+module load GCCcore/.9.3.0
+module load Python/3.9.6
+module load cuDNN/8.1.1.33-CUDA-11.2.1
+
+export TF_CPP_MIN_LOG_LEVEL="2"
+
 
 date
 
-python ./network.py
+python3 ./network.py
 
 date
