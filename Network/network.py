@@ -40,44 +40,54 @@ for i in range((n_data - 1) // 1000 + 1):
 
 files = ["/hpcwork/cg457676/data/Processed_Data/" + "pspec_{:05}.csv".format(i) for i in range(n_data)]
 
+a = int(n_data * 0.8)
+b = int(n_data * 0.9)
+
+train_data = [np.genfromtxt(f, delimiter = ",") for f in files[: a]]
+valid_data = [np.genfromtxt(f, delimiter = ",") for f in files[a : b]]
+test_data = [np.genfromtxt(f, delimiter = ",") for f in files[b :]]
+
+train_labels = parameter[: a]
+valid_labels = parameter[a : b]
+test_labels = parameter[b :]
 
 # Generators for reading the data sets
 
-data_input_shape = (79, 2001, 1)
-lab_inut_shape = (5, 1)
+# data_input_shape = (79, 2001, 1)
+# lab_inut_shape = (5, 1)
 
 
-# data generator
-def data_generator(file_paths, labels, split = "train", batchsize = 32):
+# # data generator
+# def data_generator(file_paths, labels, split = "train", batchsize = 32):
 
-    if split == "train" :
-        a = 0
-        b = 0.8
+#     if split == "train" :
+#         a = 0
+#         b = 0.8
 
-    elif split == "validation":
-        a = 0.8
-        b = 0.9
-    else :
-        a = 0.9
-        b = 1
+#     elif split == "validation":
+#         a = 0.8
+#         b = 0.9
+#     else :
+#         a = 0.9
+#         b = 1
     
-    n = len(file_paths)
-    file_pth = file_paths[int(a * n) : int(b * n)]
-    lab = labels[int(a * n) : int(b * n)]
+#     n = len(file_paths)
+#     file_pth = file_paths[int(a * n) : int(b * n)]
+#     lab = labels[int(a * n) : int(b * n)]
 
-    for i in range(0, len(file_pth), batchsize):
+#     for i in range(0, len(file_pth), batchsize):
 
-        data_paths = file_pth[i : i + batchsize]
-        data = np.reshape(np.array([np.genfromtxt(path, delimiter = ",") for path in data_paths]), (-1, 79, 2001, 1))
-        labs = np.reshape(lab[i : i + batchsize], (-1, 5, 1))
+#         data_paths = file_pth[i : i + batchsize]
+#         data = np.reshape(np.array([np.genfromtxt(path, delimiter = ",") for path in data_paths]), (-1, 79, 2001, 1))
+#         labs = np.reshape(lab[i : i + batchsize], (-1, 5, 1))
 
-        yield data, labs
+#         yield data, labs
 
-output = (tf.TensorSpec(shape = [None, *data_input_shape], dtype = tf.float64), tf.TensorSpec(shape = [None, *lab_inut_shape], dtype = tf.float64))
+# output = (tf.TensorSpec(shape = [None, *data_input_shape], dtype = tf.float64), tf.TensorSpec(shape = [None, *lab_inut_shape], dtype = tf.float64))
 
-train_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "train"), output_signature = output)
-valid_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "validation"), output_signature = output)
-test_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "test"), output_signature = output)
+# train_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "train"), output_signature = output)
+# valid_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "validation"), output_signature = output)
+# test_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "test"), output_signature = output)
 
 
 # Creating the model of the CNN
@@ -147,14 +157,16 @@ model.compile(optimizer='adam',
               loss = "mse",
               metrics=[custom_loss])
 
+# generator 
+# history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
+# eval = model.evaluate(test_generator)
 
-history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
-
-eval = model.evaluate(test_generator)
+history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 40, verbose = 2)
+eval = model.evaluate(x = test_data, y = test_labels)
 
 print(eval)
 
-run_number = 17
+run_number = 18
 
 # save the model
 model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
