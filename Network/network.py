@@ -27,7 +27,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 
 
 # Number of datasets with n_max = 1E4
-n_data = 10000
+n_data = 3000
 
 tf.random.set_seed(1234)
 
@@ -48,7 +48,7 @@ lab_inut_shape = (5, 1)
 
 
 # data generator
-def data_generator(file_paths, labels, split = "train", batchsize = 20):
+def data_generator(file_paths, labels, split = "train", batchsize = 32):
 
     if split == "train" :
         a = 0
@@ -82,51 +82,51 @@ test_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, p
 
 # Creating the model of the CNN
 
-model = keras.models.Sequential()
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((2,2)))
+# model = keras.models.Sequential()
+# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((2,2)))
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((2,2)))
+# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
 
-# Dense Layers
+# # Dense Layers
 
-model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(64, activation = 'relu'))
-model.add(keras.layers.Dense(64, activation = 'relu'))
-model.add(keras.layers.Dense(5, activation = "relu"))
+# model.add(keras.layers.Flatten())
+# model.add(keras.layers.Dense(64, activation = 'relu'))
+# model.add(keras.layers.Dense(64, activation = 'relu'))
+# model.add(keras.layers.Dense(5, activation = "relu"))
 
 
 # Test Locally connected
-# model = keras.models.Sequential()
-# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,6)))
+model = keras.models.Sequential()
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
-# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,6)))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
-# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((1,4)))
+model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
-# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model.add(keras.layers.LocallyConnected2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
 # # Dense Layer
 
-# model.add(keras.layers.Flatten())
-# model.add(keras.layers.Dense(128, activation = 'relu'))
-# model.add(keras.layers.Dense(128, activation = 'relu'))
-# model.add(keras.layers.Dense(5, activation = "relu"))
+model.add(keras.layers.Flatten())
+model.add(keras.layers.Dense(256, activation = 'relu'))
+model.add(keras.layers.Dense(256, activation = 'relu'))
+model.add(keras.layers.Dense(5, activation = "relu"))
 
 
 
@@ -143,18 +143,20 @@ def custom_loss(y_true, y_pred):
     return tf.reduce_mean(metric, axis = -1)
 
 
+callback = keras.callbacks.EarlyStopping(monitor='val_loss', patience = 10)
+
 model.compile(optimizer='adam',
               loss = "mse",
               metrics=[custom_loss])
 
 
-history = model.fit(train_generator, validation_data = valid_generator, epochs = 50, verbose = 2)
+history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2, callbacks = [callback])
 
 eval = model.evaluate(test_generator)
 
 print(eval)
 
-run_number = 14
+run_number = 16
 
 # save the model
 model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))

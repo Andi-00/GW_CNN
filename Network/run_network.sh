@@ -2,16 +2,18 @@
 
 
 ### TIME 
-#SBATCH --time=60:00:00
+#SBATCH --time=20:00:00
 
 ### ACCOUNT
 ###SBATCH --account=rwth0754
 
 ### JOBNAME
-#SBATCH --job-name=run_14
+#SBATCH --job-name=run_16
+
+#SBATCH --mem-per-cpu=100G
 
 ### OUTPUT
-#SBATCH --output=./network_output/run_14/run_14.txt
+#SBATCH --output=./network_output/run_16/run_16.txt
 
 ### your code goes here
 
