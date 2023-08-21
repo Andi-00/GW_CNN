@@ -49,16 +49,19 @@ s = time.time()
 
 print("start loading data")
 
-train_data = [np.genfromtxt(f, delimiter = ",") for f in files[: a]]
-valid_data = [np.genfromtxt(f, delimiter = ",") for f in files[a : b]]
-test_data = [np.genfromtxt(f, delimiter = ",") for f in files[b :]]
+train_data = np.reshape(np.array([np.genfromtxt(f, delimiter = ",") for f in files[: a]]), (-1, 79, 2001, 1))
+valid_data = np.reshape(np.array([np.genfromtxt(f, delimiter = ",") for f in files[a : b]]), (-1, 79, 2001, 1))
+test_data = np.reshape(np.array([np.genfromtxt(f, delimiter = ",") for f in files[b :]]), (-1, 79, 2001, 1))
 
-train_labels = parameter[: a]
-valid_labels = parameter[a : b]
-test_labels = parameter[b :]
+print(train_data.shape)
+
+train_labels = np.reshape(parameter[: a], (-1, 5, 1))
+valid_labels = np.reshape(parameter[a : b], (-1, 5, 1))
+test_labels = np.reshape(parameter[b :], (-1, 5, 1))
 
 print("end loading data")
-print("Dauer : {:.2f}".format(time.time() - s))
+dauer = time.time() - s
+print("Dauer : {:02}:{:02} (min:sec)".format(dauer // 60, int((dauer - dauer // 60) * 60)))
 
 # Generators for reading the data sets
 
