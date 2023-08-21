@@ -43,6 +43,12 @@ files = ["/hpcwork/cg457676/data/Processed_Data/" + "pspec_{:05}.csv".format(i) 
 a = int(n_data * 0.8)
 b = int(n_data * 0.9)
 
+import time
+
+s = time.time()
+
+print("start loading data")
+
 train_data = [np.genfromtxt(f, delimiter = ",") for f in files[: a]]
 valid_data = [np.genfromtxt(f, delimiter = ",") for f in files[a : b]]
 test_data = [np.genfromtxt(f, delimiter = ",") for f in files[b :]]
@@ -50,6 +56,9 @@ test_data = [np.genfromtxt(f, delimiter = ",") for f in files[b :]]
 train_labels = parameter[: a]
 valid_labels = parameter[a : b]
 test_labels = parameter[b :]
+
+print("end loading data")
+print("Dauer : {:.2f}".format(time.time() - s))
 
 # Generators for reading the data sets
 
