@@ -28,6 +28,8 @@ module load cuDNN/8.1.1.33-CUDA-11.2.1
 
 export TF_CPP_MIN_LOG_LEVEL="2"
 
+export XLA_FLAGS="--xla_gpu_cuda_data_dir=$CUDA_ROOT"
+
 
 date
 

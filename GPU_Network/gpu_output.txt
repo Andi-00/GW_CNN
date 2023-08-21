@@ -1,4 +1,4 @@
-Mon Aug 21 12:08:37 CEST 2023
+Mon Aug 21 20:43:10 CEST 2023
 [INFO] Module zlib/1.2.12 loaded.
 [INFO] Module binutils/2.38 loaded.
 [INFO] Module numactl/2.0.14 loaded.
@@ -21,9 +21,7 @@ The following have been reloaded with a version change:
   1) binutils/2.38 => binutils/2.37     2) zlib/1.2.12 => zlib/1.2.11
 
 [INFO] Module cuDNN/8.1.1.33-CUDA-11.2.1 loaded.
-Mon Aug 21 12:08:37 CEST 2023
-here
-hi
+Mon Aug 21 20:43:11 CEST 2023
 Model: "sequential"
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
@@ -57,49 +55,18 @@ _________________________________________________________________
                                                                  
  dense_2 (Dense)             (None, 5)                 325       
                                                                  
+ flatten_1 (Flatten)         (None, 5)                 0         
+                                                                 
+ dense_3 (Dense)             (None, 128)               768       
+                                                                 
+ dense_4 (Dense)             (None, 128)               16512     
+                                                                 
+ dense_5 (Dense)             (None, 5)                 645       
+                                                                 
 =================================================================
-Total params: 6,122,037
-Trainable params: 6,122,037
+Total params: 6,139,962
+Trainable params: 6,139,962
 Non-trainable params: 0
 _________________________________________________________________
 Epoch 1/40
-Traceback (most recent call last):
-  File "/rwthfs/rz/cluster/home/cg457676/EMRI_waveform/CNN/GPU_Network/./network.py", line 131, in <module>
-    history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
-  File "/home/cg457676/.local/lib/python3.9/site-packages/keras/utils/traceback_utils.py", line 70, in error_handler
-    raise e.with_traceback(filtered_tb) from None
-  File "/home/cg457676/.local/lib/python3.9/site-packages/tensorflow/python/eager/execute.py", line 52, in quick_execute
-    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
-tensorflow.python.framework.errors_impl.InternalError: Graph execution error:
-
-Detected at node 'StatefulPartitionedCall_16' defined at (most recent call last):
-    File "/rwthfs/rz/cluster/home/cg457676/EMRI_waveform/CNN/GPU_Network/./network.py", line 131, in <module>
-      history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/utils/traceback_utils.py", line 65, in error_handler
-      return fn(*args, **kwargs)
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/engine/training.py", line 1650, in fit
-      tmp_logs = self.train_function(iterator)
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/engine/training.py", line 1249, in train_function
-      return step_function(self, iterator)
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/engine/training.py", line 1233, in step_function
-      outputs = model.distribute_strategy.run(run_step, args=(data,))
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/engine/training.py", line 1222, in run_step
-      outputs = model.train_step(data)
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/engine/training.py", line 1027, in train_step
-      self.optimizer.minimize(loss, self.trainable_variables, tape=tape)
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/optimizers/optimizer_experimental/optimizer.py", line 527, in minimize
-      self.apply_gradients(grads_and_vars)
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/optimizers/optimizer_experimental/optimizer.py", line 1140, in apply_gradients
-      return super().apply_gradients(grads_and_vars, name=name)
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/optimizers/optimizer_experimental/optimizer.py", line 634, in apply_gradients
-      iteration = self._internal_apply_gradients(grads_and_vars)
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/optimizers/optimizer_experimental/optimizer.py", line 1166, in _internal_apply_gradients
-      return tf.__internal__.distribute.interim.maybe_merge_call(
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/optimizers/optimizer_experimental/optimizer.py", line 1216, in _distributed_apply_gradients_fn
-      distribution.extended.update(
-    File "/home/cg457676/.local/lib/python3.9/site-packages/keras/optimizers/optimizer_experimental/optimizer.py", line 1211, in apply_grad_to_update_var
-      return self._update_step_xla(grad, var, id(self._var_key(var)))
-Node: 'StatefulPartitionedCall_16'
-libdevice not found at ./libdevice.10.bc
-	 [[{{node StatefulPartitionedCall_16}}]] [Op:__inference_train_function_2160]
-Mon Aug 21 12:09:18 CEST 2023
+slurmstepd: error: *** JOB 38419995 ON nrg06 CANCELLED AT 2023-08-21T20:52:33 ***

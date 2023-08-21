@@ -8,12 +8,12 @@
 ###SBATCH --account=rwth0754
 
 ### JOBNAME
-#SBATCH --job-name=run_16
+#SBATCH --job-name=run_17
 
 #SBATCH --mem-per-cpu=100G
 
 ### OUTPUT
-#SBATCH --output=./network_output/run_16/run_16.txt
+#SBATCH --output=./network_output/run_17/run_17.txt
 
 ### your code goes here
 
@@ -24,6 +24,7 @@ export PATH="$CONDA_ROOT/bin:$PATH"
 
 ### Now you can activate your configured conda environments
 conda activate tf
+export TF_CPP_MIN_LOG_LEVEL="2"
 
 date
 

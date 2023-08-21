@@ -105,7 +105,11 @@ test_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, p
 
 # Test Locally connected
 model = keras.models.Sequential()
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
+
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
 model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
@@ -117,15 +121,11 @@ model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
 model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((2,2)))
-
 # # Dense Layer
 
 model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(256, activation = 'relu'))
-model.add(keras.layers.Dense(256, activation = 'relu'))
+model.add(keras.layers.Dense(128, activation = 'relu'))
+model.add(keras.layers.Dense(128, activation = 'relu'))
 model.add(keras.layers.Dense(5, activation = "relu"))
 
 
@@ -143,20 +143,18 @@ def custom_loss(y_true, y_pred):
     return tf.reduce_mean(metric, axis = -1)
 
 
-callback = keras.callbacks.EarlyStopping(monitor='val_loss', patience = 10)
-
 model.compile(optimizer='adam',
               loss = "mse",
               metrics=[custom_loss])
 
 
-history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2, callbacks = [callback])
+history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
 
 eval = model.evaluate(test_generator)
 
 print(eval)
 
-run_number = 16
+run_number = 17
 
 # save the model
 model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
