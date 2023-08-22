@@ -154,7 +154,7 @@ eval = model.evaluate(x = test_data, y = test_labels)
 
 print(eval)
 
-run_number = 18
+run_number = 19
 
 # save the model
 model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
