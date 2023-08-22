@@ -61,7 +61,7 @@ test_labels = np.reshape(parameter[b :], (-1, 5, 1))
 
 print("end loading data")
 dauer = time.time() - s
-print("Dauer : {:02}:{:02} (min:sec)".format(dauer // 60, int((dauer - dauer // 60) * 60)))
+print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 # Generators for reading the data sets
 

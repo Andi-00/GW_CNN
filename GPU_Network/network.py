@@ -2,6 +2,8 @@ from tensorflow import keras
 import tensorflow as tf
 import numpy as np
 
+
+
 # Number of datasets with n_max = 1E4
 n_data = 3000
 
@@ -16,49 +18,53 @@ for i in range((n_data - 1) // 1000 + 1):
 
 files = ["/hpcwork/cg457676/data/Processed_Data/" + "pspec_{:05}.csv".format(i) for i in range(n_data)]
 
+a = int(n_data * 0.8)
+b = int(n_data * 0.9)
 
-# Generators for reading the data sets
+import time
 
-data_input_shape = (79, 2001, 1)
-lab_inut_shape = (5, 1)
+s = time.time()
 
+print("start loading data")
 
-# data generator
-def data_generator(file_paths, labels, split = "train", batchsize = 32):
+train_data = np.reshape(np.array([np.genfromtxt(f, delimiter = ",") for f in files[: a]]), (-1, 79, 2001, 1))
+valid_data = np.reshape(np.array([np.genfromtxt(f, delimiter = ",") for f in files[a : b]]), (-1, 79, 2001, 1))
+test_data = np.reshape(np.array([np.genfromtxt(f, delimiter = ",") for f in files[b :]]), (-1, 79, 2001, 1))
 
-    if split == "train" :
-        a = 0
-        b = 0.8
+print(train_data.shape)
 
-    elif split == "validation":
-        a = 0.8
-        b = 0.9
-    else :
-        a = 0.9
-        b = 1
-    
-    n = len(file_paths)
-    file_pth = file_paths[int(a * n) : int(b * n)]
-    lab = labels[int(a * n) : int(b * n)]
+train_labels = np.reshape(parameter[: a], (-1, 5, 1))
+valid_labels = np.reshape(parameter[a : b], (-1, 5, 1))
+test_labels = np.reshape(parameter[b :], (-1, 5, 1))
 
-    for i in range(0, len(file_pth), batchsize):
-
-        data_paths = file_pth[i : i + batchsize]
-        data = np.reshape(np.array([np.genfromtxt(path, delimiter = ",") for path in data_paths]), (-1, 79, 2001, 1))
-        labs = np.reshape(lab[i : i + batchsize], (-1, 5, 1))
-
-        yield data, labs
-
-
-output = (tf.TensorSpec(shape = [None, *data_input_shape], dtype = tf.float64), tf.TensorSpec(shape = [None, *lab_inut_shape], dtype = tf.float64))
-
-train_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "train"), output_signature = output)
-valid_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "validation"), output_signature = output)
-test_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "test"), output_signature = output)
-
+print("end loading data")
+dauer = time.time() - s
+print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 # Creating the model of the CNN
 
+# model = keras.models.Sequential()
+# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
+
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
+
+# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
+
+# # Dense Layers
+
+# model.add(keras.layers.Flatten())
+# model.add(keras.layers.Dense(64, activation = 'relu'))
+# model.add(keras.layers.Dense(64, activation = 'relu'))
+# model.add(keras.layers.Dense(5, activation = "relu"))
+
+
+# Test Locally connected
 model = keras.models.Sequential()
 model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
 model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
@@ -72,34 +78,11 @@ model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
 model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-# Dense Layers
+model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(64, activation = 'relu'))
-model.add(keras.layers.Dense(64, activation = 'relu'))
-model.add(keras.layers.Dense(5, activation = "relu"))
-
-
-# Test Locally connected
-# model = keras.models.Sequential()
-# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
-
-# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
-
-# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
-
-# model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
-
-
-# Dense Layer
+# # Dense Layer
 
 model.add(keras.layers.Flatten())
 model.add(keras.layers.Dense(128, activation = 'relu'))
@@ -120,20 +103,21 @@ def custom_loss(y_true, y_pred):
 
     return tf.reduce_mean(metric, axis = -1)
 
-callback = keras.callbacks.EarlyStopping(monitor='val_loss', patience = 10)
 
 model.compile(optimizer='adam',
               loss = "mse",
               metrics=[custom_loss])
 
+# generator 
+# history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
+# eval = model.evaluate(test_generator)
 
-history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2, callbacks = [callback])
-
-eval = model.evaluate(test_generator)
+history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 40, verbose = 2)
+eval = model.evaluate(x = test_data, y = test_labels)
 
 print(eval)
 
-run_number = 15
+run_number = 18
 
 # save the model
 # model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
