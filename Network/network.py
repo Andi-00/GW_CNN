@@ -126,33 +126,58 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 # model.add(keras.layers.Dense(128, activation = 'relu'))
 # model.add(keras.layers.Dense(5, activation = "relu"))
 
-
+# Model 1
 model_1 = keras.models.Sequential()
-model_1.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model_1.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model_1.add(keras.layers.Conv2D(16, (3, 3), activation = "tanh", input_shape = (79, 2001, 1)))
+model_1.add(keras.layers.Conv2D(16, (3, 3), activation = "tanh"))
 model_1.add(keras.layers.MaxPooling2D((2,2)))
 
-model_1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model_1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model_1.add(keras.layers.Conv2D(32, (3, 3), activation = "tanh"))
+model_1.add(keras.layers.Conv2D(32, (3, 3), activation = "tanh"))
 model_1.add(keras.layers.MaxPooling2D((2,2)))
 
-model_1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model_1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model_1.add(keras.layers.Conv2D(64, (3, 3), activation = "tanh"))
+model_1.add(keras.layers.Conv2D(64, (3, 3), activation = "tanh"))
 model_1.add(keras.layers.MaxPooling2D((2,2)))
 
-model_1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model_1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model_1.add(keras.layers.Conv2D(128, (3, 3), activation = "tanh"))
+model_1.add(keras.layers.Conv2D(128, (3, 3), activation = "tanh"))
 model_1.add(keras.layers.MaxPooling2D((2,2)))
+
+# Dense Layer
+model_1.add(keras.layers.Flatten())
+model_1.add(keras.layers.Dense(128, activation = 'tanh'))
+model_1.add(keras.layers.Dense(128, activation = 'tanh'))
+model_1.add(keras.layers.Dense(5, activation = "relu"))
+
+
+# Model 2
+model_2 = keras.models.Sequential()
+model_2.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model_2.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model_2.add(keras.layers.MaxPooling2D((2,2)))
+
+model_2.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model_2.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model_2.add(keras.layers.MaxPooling2D((2,2)))
+
+model_2.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model_2.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model_2.add(keras.layers.MaxPooling2D((2,2)))
+
+model_2.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model_2.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model_2.add(keras.layers.MaxPooling2D((2,2)))
 
 # # Dense Layer
 
-model_1.add(keras.layers.Flatten())
-model_1.add(keras.layers.Dense(128, activation = 'relu'))
-model_1.add(keras.layers.Dense(128, activation = 'relu'))
-model_1.add(keras.layers.Dense(5, activation = "relu"))
+model_2.add(keras.layers.Flatten())
+model_2.add(keras.layers.Dense(128, activation = 'relu'))
+model_2.add(keras.layers.Dense(128, activation = 'relu'))
+model_2.add(keras.layers.Dense(5, activation = "relu"))
 
-models = [model_1]
-run_number = 20
+models = [model_1, model_2]
+run_number = 0
 
 for model in models:
 
@@ -182,10 +207,10 @@ for model in models:
     print(eval)
 
     # save the model
-    model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_number))
+    model.save("./network_output/run_1.{:02}/model_1.{:02}.keras".format(run_number, run_number))
 
     # Save the history
-    np.save('./network_output/run_{}/history_{}.npy'.format(run_number, run_number), history.history)
+    np.save('./network_output/run_1.{:02}/history_1.{:02}.npy'.format(run_number, run_number), history.history)
     # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
     run_number += 1
