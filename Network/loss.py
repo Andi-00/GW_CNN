@@ -26,7 +26,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 
 
 
-run_number = 1
+run_number = 3
 
 
 model = keras.models.load_model("./Network/network_output/run_1.{:02}/model_1.{:02}.keras".format(run_number, run_number), compile = False)

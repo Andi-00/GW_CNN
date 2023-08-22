@@ -26,9 +26,9 @@ plt.rcParams['savefig.pad_inches'] = 0.1
 plt.rcParams['figure.figsize'] = (10, 6)
 
 # Load the model
-n_run = 20
+n_run = 3
 
-model = keras.models.load_model("./Network/network_output/run_{}/model_{}.keras".format(n_run, n_run), compile = False)
+model = keras.models.load_model("./Network/network_output/run_1.{:02}/model_1.{:02}.keras".format(n_run, n_run), compile = False)
 
 # Generate the test_data
 data = np.genfromtxt("/hpcwork/cg457676/data/processed_parameter/pro_par9.csv", delimiter = ",")
@@ -38,15 +38,15 @@ n_test = 1000
 
 for i in range(0, n_test, 20):
     print(i)
-    spec = np.reshape(np.array([np.genfromtxt("/hpcwork/cg457676/data/Processed_Data/pspec_{:05}.csv".format(9000 + i + j), delimiter = ",") for j in range(20)]), (-1, 79, 2001, 1))
+    spec = np.reshape(np.array([np.genfromtxt("/hpcwork/cg457676/data/Processed_Data_0/pspec0_{:05}.csv".format(9000 + i + j), delimiter = ",") for j in range(20)]), (-1, 79, 2001, 1))
 
     predict[i : i + 20] = model.predict(spec)
 
 # Difference pred - true
 delta = predict - data
 
-np.savetxt("./Network/network_output/run_{}/predict.txt".format(n_run), predict, delimiter = ",")
-np.savetxt("./Network/network_output/run_{}/deltas.txt".format(n_run), delta, delimiter = ",")
+np.savetxt("./Network/network_output/run_1.{:02}/predict.txt".format(n_run), predict, delimiter = ",")
+np.savetxt("./Network/network_output/run_1.{:02}/deltas.txt".format(n_run), delta, delimiter = ",")
 
 # delta = np.genfromtxt("./Network/network_output/run_11/deltas.txt", delimiter = ",")
 
@@ -94,4 +94,4 @@ for i in range(len(hists)):
 
     ax.legend()
 
-    plt.savefig("./Network/network_output/run_{}/hists/r{}_hist_{}.png".format(n_run, n_run, names[i]))
+    plt.savefig("./Network/network_output/run_1.{:02}/hists/r1.{:02}_hist_{}.png".format(n_run, n_run, names[i]))
