@@ -26,11 +26,11 @@ plt.rcParams['figure.figsize'] = (10, 6)
 
 
 
-run_number = 20
+run_number = 0
 
 
-model = keras.models.load_model("./Network/network_output/run_{}/model_{}.keras".format(run_number, run_number), compile = False)
-history = np.load("./Network/network_output/run_{}/history_{}.npy".format(run_number, run_number), allow_pickle='TRUE').item()
+model = keras.models.load_model("./Network/network_output/run_1.{:02}/model_1.{:02}.keras".format(run_number, run_number), compile = False)
+history = np.load("./Network/network_output/run_1.{:02}/history_1.{:02}.npy".format(run_number, run_number), allow_pickle='TRUE').item()
 
 n_test = 1000
 
@@ -75,7 +75,7 @@ values[1:, 2] = per
 
 print(values)
 
-np.savetxt("./Network/network_output/run_{}/eval_{}.csv".format(run_number, run_number), values, delimiter = ",", fmt="%s")
+np.savetxt("./Network/network_output/run_1.{:02}/eval_1.{:02}.csv".format(run_number, run_number), values, delimiter = ",", fmt="%s")
 
 epochs = np.arange(1, len(history["loss"]) + 1)
 
@@ -85,8 +85,8 @@ ax.plot(epochs, history["val_loss"], color = "royalblue", label = "validation")
 
 ax.set_xlabel("Epochs")
 ax.set_ylabel("Mean Squared Error")
-ax.set_title("Evaluation of run_{}".format(run_number), y = 1.02)
+ax.set_title("Evaluation of run_1.{:02}".format(run_number), y = 1.02)
 ax.legend()
 ax.grid()
 
-plt.savefig("./Network/network_output/run_{}/loss.png".format(run_number))
+plt.savefig("./Network/network_output/run_1.{:02}/loss.png".format(run_number))
