@@ -15,7 +15,7 @@
 
 
 ### OUTPUT
-#SBATCH --output=./network_output/outputs/run_1.00-02.txt
+#SBATCH --output=./network_output/outputs/run_1.03-05.txt
 
 ### your code goes here
 

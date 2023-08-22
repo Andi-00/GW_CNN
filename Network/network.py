@@ -126,91 +126,42 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 # model.add(keras.layers.Dense(128, activation = 'relu'))
 # model.add(keras.layers.Dense(5, activation = "relu"))
 
-# Model 1
-model_1 = keras.models.Sequential()
-model_1.add(keras.layers.Conv2D(16, (3, 3), activation = "tanh", input_shape = (79, 2001, 1)))
-model_1.add(keras.layers.Conv2D(16, (3, 3), activation = "tanh"))
-model_1.add(keras.layers.MaxPooling2D((2,2)))
-
-model_1.add(keras.layers.Conv2D(32, (3, 3), activation = "tanh"))
-model_1.add(keras.layers.Conv2D(32, (3, 3), activation = "tanh"))
-model_1.add(keras.layers.MaxPooling2D((2,2)))
-
-model_1.add(keras.layers.Conv2D(64, (3, 3), activation = "tanh"))
-model_1.add(keras.layers.Conv2D(64, (3, 3), activation = "tanh"))
-model_1.add(keras.layers.MaxPooling2D((2,2)))
-
-model_1.add(keras.layers.Conv2D(128, (3, 3), activation = "tanh"))
-model_1.add(keras.layers.Conv2D(128, (3, 3), activation = "tanh"))
-model_1.add(keras.layers.MaxPooling2D((2,2)))
-
-# Dense Layer
-model_1.add(keras.layers.Flatten())
-model_1.add(keras.layers.Dense(128, activation = 'tanh'))
-model_1.add(keras.layers.Dense(128, activation = 'tanh'))
-model_1.add(keras.layers.Dense(5, activation = "relu"))
-
-
-# Model 2
-model_2 = keras.models.Sequential()
-model_2.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model_2.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model_2.add(keras.layers.MaxPooling2D((2,2)))
-
-model_2.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model_2.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model_2.add(keras.layers.MaxPooling2D((2,2)))
-
-model_2.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model_2.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model_2.add(keras.layers.MaxPooling2D((2,2)))
-
-model_2.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-model_2.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-model_2.add(keras.layers.MaxPooling2D((2,2)))
-
-# # Dense Layer
-
-model_2.add(keras.layers.Flatten())
-model_2.add(keras.layers.Dense(256, activation = 'relu'))
-model_2.add(keras.layers.Dense(256, activation = 'relu'))
-model_2.add(keras.layers.Dense(5, activation = "relu"))
-
 
 # Model 3
 model_3 = keras.models.Sequential()
-model_3.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1), kernel_regularizer = "l2"))
-model_3.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model_3.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
 model_3.add(keras.layers.MaxPooling2D((2,2)))
 
-model_3.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", kernel_regularizer = "l2"))
-model_3.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model_3.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
 model_3.add(keras.layers.MaxPooling2D((2,2)))
 
-model_3.add(keras.layers.Conv2D(64, (3, 3), activation = "relu", kernel_regularizer = "l2"))
-model_3.add(keras.layers.Conv2D(64, (3, 3), activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model_3.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
 model_3.add(keras.layers.MaxPooling2D((2,2)))
 
-model_3.add(keras.layers.Conv2D(128, (3, 3), activation = "relu", kernel_regularizer = "l2"))
-model_3.add(keras.layers.Conv2D(128, (3, 3), activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model_3.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
 model_3.add(keras.layers.MaxPooling2D((2,2)))
 
-# Dense Layer
+# # Dense Layer
+
 model_3.add(keras.layers.Flatten())
-model_3.add(keras.layers.Dense(128, activation = 'relu', kernel_regularizer = "l2"))
-model_3.add(keras.layers.Dense(128, activation = 'relu', kernel_regularizer = "l2"))
-model_3.add(keras.layers.Dense(5, activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.Dense(256, activation = 'relu'))
+model_3.add(keras.layers.Dense(256, activation = 'relu'))
+model_3.add(keras.layers.Dense(5, activation = "relu"))
+
+model_4 = keras.models.clone_model(model_3)
+model_5 = keras.models.clone_model(model_3)
 
 
+def schedular(epoch, lr):
+    if epoch < 10: return lr
+    else: return lr * tf.math.exp(-0.1)
 
-models = [model_1, model_2, model_3]
-run_number = 0
 
-for model in models:
-
-    model.summary()
-
-    def custom_loss(y_true, y_pred):
+def custom_loss(y_true, y_pred):
         val = tf.constant([4.0, 1.0, 0.0, 0.1, 10.0])
         val = y_true + val
 
@@ -220,15 +171,34 @@ for model in models:
         return tf.reduce_mean(metric, axis = -1)
 
 
-    model.compile(optimizer='adam',
-                loss = "mse",
-                metrics=[custom_loss])
+
+model_3.compile(optimizer = keras.optimizers.Adam(learning_rate = 0.001),
+            loss = "mse",
+            metrics=[custom_loss])
+
+model_4.compile(optimizer = keras.optimizers.Adam(learning_rate = 0.01),
+            loss = "mse",
+            metrics=[custom_loss])
+
+model_5.compile(optimizer = keras.optimizers.Adam(learning_rate = 0.1),
+            loss = "mse",
+            metrics=[custom_loss])
+
+
+models = [model_3, model_4, model_5]
+run_number = 3
+
+for model in models:
+
+    model.summary()
+
+    callback = tf.keras.callbacks.LearningRateScheduler(schedular)
 
     # generator 
     # history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
     # eval = model.evaluate(test_generator)
 
-    history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 50, verbose = 2)
+    history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 50, callbacks = [callback], verbose = 2)
     eval = model.evaluate(x = test_data, y = test_labels)
 
     print(eval)
