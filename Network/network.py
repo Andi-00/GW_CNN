@@ -153,11 +153,7 @@ model_1.add(keras.layers.Dense(5, activation = "relu"))
 
 # Model 2
 model_2 = keras.models.Sequential()
-model_2.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model_2.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
-model_2.add(keras.layers.MaxPooling2D((2,2)))
-
-model_2.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model_2.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
 model_2.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
 model_2.add(keras.layers.MaxPooling2D((2,2)))
 
@@ -167,16 +163,47 @@ model_2.add(keras.layers.MaxPooling2D((2,2)))
 
 model_2.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
 model_2.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model_2.add(keras.layers.MaxPooling2D((2,2)))
+
+model_2.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model_2.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
 model_2.add(keras.layers.MaxPooling2D((2,2)))
 
 # # Dense Layer
 
 model_2.add(keras.layers.Flatten())
-model_2.add(keras.layers.Dense(128, activation = 'relu'))
-model_2.add(keras.layers.Dense(128, activation = 'relu'))
+model_2.add(keras.layers.Dense(256, activation = 'relu'))
+model_2.add(keras.layers.Dense(256, activation = 'relu'))
 model_2.add(keras.layers.Dense(5, activation = "relu"))
 
-models = [model_1, model_2]
+
+# Model 3
+model_3 = keras.models.Sequential()
+model_3.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1), kernel_regularizer = "l2"))
+model_3.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.MaxPooling2D((2,2)))
+
+model_3.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.MaxPooling2D((2,2)))
+
+model_3.add(keras.layers.Conv2D(64, (3, 3), activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.Conv2D(64, (3, 3), activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.MaxPooling2D((2,2)))
+
+model_3.add(keras.layers.Conv2D(128, (3, 3), activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.Conv2D(128, (3, 3), activation = "relu", kernel_regularizer = "l2"))
+model_3.add(keras.layers.MaxPooling2D((2,2)))
+
+# Dense Layer
+model_3.add(keras.layers.Flatten())
+model_3.add(keras.layers.Dense(128, activation = 'relu', kernel_regularizer = "l2"))
+model_3.add(keras.layers.Dense(128, activation = 'relu', kernel_regularizer = "l2"))
+model_3.add(keras.layers.Dense(5, activation = "relu", kernel_regularizer = "l2"))
+
+
+
+models = [model_1, model_2, model_3]
 run_number = 0
 
 for model in models:
@@ -212,5 +239,7 @@ for model in models:
     # Save the history
     np.save('./network_output/run_1.{:02}/history_1.{:02}.npy'.format(run_number, run_number), history.history)
     # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
+
+    
 
     run_number += 1
