@@ -1,30 +1,6 @@
 from tensorflow import keras
 import tensorflow as tf
 import numpy as np
-from matplotlib import pyplot as plt
-
-plt.rcParams['pgf.rcfonts'] = False
-plt.rcParams['font.serif'] = []
-plt.rcParams['font.family'] = 'serif'
-plt.rcParams['text.usetex'] = True
-plt.rcParams['axes.formatter.useoffset'] = False
-plt.rcParams['lines.linewidth'] = 2
-plt.rcParams['errorbar.capsize'] = 2
-plt.rcParams['grid.linewidth'] = 0.5
-plt.rcParams['axes.labelsize'] = 18
-plt.rcParams['axes.titlesize'] = 18
-plt.rcParams['xtick.labelsize'] = 14
-plt.rcParams['ytick.labelsize'] = 14
-plt.rcParams['legend.title_fontsize'] = 14
-plt.rcParams['legend.fontsize'] = 14
-plt.rcParams['savefig.dpi'] = 300
-plt.rcParams['savefig.bbox'] = 'tight'
-plt.rcParams['savefig.pad_inches'] = 0.1
-
-#plt.rcParams['savefig.transparent'] = True
-plt.rcParams['figure.figsize'] = (10, 6)
-
-
 
 # Number of datasets with n_max = 1E4
 n_data = 3000
@@ -173,7 +149,7 @@ model.compile(optimizer='adam',
 # history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
 # eval = model.evaluate(test_generator)
 
-history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 40, verbose = 2)
+history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 50, verbose = 2)
 eval = model.evaluate(x = test_data, y = test_labels)
 
 print(eval)
@@ -186,12 +162,3 @@ model.save("./network_output/run_{}/model_{}.keras".format(run_number, run_numbe
 # Save the history
 np.save('./network_output/run_{}/history_{}.npy'.format(run_number, run_number), history.history)
 # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
-
-# fig, ax = plt.subplots()
-
-# ax.plot(history.history["loss"], label = "loss", color = "royalblue")
-# ax.plot(history.history["val_loss"], label = "val_loss", color = "crimson")
-# ax.legend()
-# ax.grid()
-
-# plt.savefig("./run0_loss_plot.png")
