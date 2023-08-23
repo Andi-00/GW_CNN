@@ -127,7 +127,7 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 # model.add(keras.layers.Dense(5, activation = "relu"))
 
 
-# Model 3
+# Model 4
 model_3 = keras.models.Sequential()
 model_3.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
 model_3.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
@@ -148,12 +148,37 @@ model_3.add(keras.layers.MaxPooling2D((2,2)))
 # # Dense Layer
 
 model_3.add(keras.layers.Flatten())
+
+model_3.add(keras.layers.Bidirectional(keras.layers.LSTM(256)))
+
 model_3.add(keras.layers.Dense(256, activation = 'relu'))
 model_3.add(keras.layers.Dense(256, activation = 'relu'))
 model_3.add(keras.layers.Dense(5, activation = "relu"))
 
-model_4 = keras.models.clone_model(model_3)
-model_5 = keras.models.clone_model(model_3)
+
+# Model 5
+model_5 = keras.models.Sequential()
+model_5.add(keras.layers.Conv2D(64, (7, 19), activation = "relu", input_shape = (79, 2001, 1)))
+model_5.add(keras.layers.MaxPooling2D((1,2)))
+
+model_5.add(keras.layers.Conv2D(128, (5, 15), activation = "relu"))
+model_5.add(keras.layers.MaxPooling2D((2,2)))
+
+model_5.add(keras.layers.Conv2D(256, (5, 11), activation = "relu"))
+model_5.add(keras.layers.MaxPooling2D((2,2)))
+
+model_5.add(keras.layers.Conv2D(512, (3, 7), activation = "relu"))
+model_5.add(keras.layers.MaxPooling2D((2,2)))
+
+# # Dense Layer
+
+model_5.add(keras.layers.Flatten())
+
+model_5.add(keras.layers.Dense(512, activation = 'relu'))
+model_5.add(keras.layers.Dense(512, activation = 'relu'))
+model_5.add(keras.layers.Dense(5, activation = "relu"))
+
+
 
 
 def schedular(epoch, lr):
@@ -172,25 +197,17 @@ def custom_loss(y_true, y_pred):
 
 
 
-model_3.compile(optimizer = keras.optimizers.Adam(learning_rate = 0.001),
-            loss = "mse",
-            metrics=[custom_loss])
 
-model_4.compile(optimizer = keras.optimizers.Adam(learning_rate = 0.01),
-            loss = "mse",
-            metrics=[custom_loss])
-
-model_5.compile(optimizer = keras.optimizers.Adam(learning_rate = 0.1),
-            loss = "mse",
-            metrics=[custom_loss])
-
-
-models = [model_3, model_4, model_5]
-run_number = 3
+models = [model_3, model_5]
+run_number = 4
 
 for model in models:
 
     model.summary()
+
+    model.compile(optimizer = "Adam",
+            loss = "mse",
+            metrics=[custom_loss])
 
     callback = tf.keras.callbacks.LearningRateScheduler(schedular)
 
