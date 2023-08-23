@@ -159,7 +159,7 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 # Model 5
 model_5 = keras.models.Sequential()
 model_5.add(keras.layers.Conv2D(64, (7, 19), activation = "relu", input_shape = (79, 2001, 1)))
-model_5.add(keras.layers.MaxPooling2D((1,4)))
+model_5.add(keras.layers.MaxPooling2D((1,2)))
 
 model_5.add(keras.layers.Conv2D(128, (5, 15), activation = "relu"))
 model_5.add(keras.layers.MaxPooling2D((2,2)))
@@ -199,7 +199,7 @@ def custom_loss(y_true, y_pred):
 
 
 models = [model_5]
-run_number = 4
+run_number = 5
 
 for model in models:
 
