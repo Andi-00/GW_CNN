@@ -149,7 +149,7 @@ model_3.add(keras.layers.MaxPooling2D((2,2)))
 
 model_3.add(keras.layers.Flatten())
 
-model_3.add(keras.layers.Bidirectional(keras.layers.LSTM(256)))
+model_3.add(keras.layers.LSTM(256))
 
 model_3.add(keras.layers.Dense(256, activation = 'relu'))
 model_3.add(keras.layers.Dense(256, activation = 'relu'))
