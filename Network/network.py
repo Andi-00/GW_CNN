@@ -101,7 +101,7 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 # model.add(keras.layers.Dense(5, activation = "relu"))
 
 
-# Gutes Network (run 19 und co)
+# Gutes Network (run 20 und co)
 model = keras.models.Sequential()
 model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
 model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
