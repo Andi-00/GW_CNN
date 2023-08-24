@@ -102,61 +102,32 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 
 # Gutes Network (run 19 und co)
-# model = keras.models.Sequential()
-# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
+model = keras.models.Sequential()
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
-# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
-# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
-# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
+model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
-# # # Dense Layer
+# # Dense Layer
 
-# model.add(keras.layers.Flatten())
-# model.add(keras.layers.Dense(128, activation = 'relu'))
-# model.add(keras.layers.Dense(128, activation = 'relu'))
-# model.add(keras.layers.Dense(5, activation = "relu"))
-
-
-# Model 4
-# model_3 = keras.models.Sequential()
-# model_3.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-# model_3.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model_3.add(keras.layers.MaxPooling2D((2,2)))
-
-# model_3.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model_3.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model_3.add(keras.layers.MaxPooling2D((2,2)))
-
-# model_3.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model_3.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model_3.add(keras.layers.MaxPooling2D((2,2)))
-
-# model_3.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-# model_3.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-# model_3.add(keras.layers.MaxPooling2D((2,2)))
-
-# # # Dense Layer
-
-# # model_3.add(keras.layers.Flatten())
-
-# model_3.add(keras.layers.LSTM(256))
-
-# model_3.add(keras.layers.Dense(256, activation = 'relu'))
-# model_3.add(keras.layers.Dense(256, activation = 'relu'))
-# model_3.add(keras.layers.Dense(5, activation = "relu"))
+model.add(keras.layers.Flatten())
+model.add(keras.layers.Dense(128, activation = 'relu'))
+model.add(keras.layers.Dense(128, activation = 'relu'))
+model.add(keras.layers.Dense(5, activation = "relu"))
 
 
-# Model 5
+# run 1.03
 model0 = keras.models.Sequential()
 model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
 model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
@@ -174,24 +145,53 @@ model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
 model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
 model0.add(keras.layers.MaxPooling2D((2,2)))
 
-# Prep for recurrent layer
-model0.add(keras.layers.Reshape(target_shape = (128, -1)))
-model0.add(keras.layers.LSTM(units = 256))
+model0.add(keras.layers.Flatten())
 
 # # Dense Layer
-
 
 model0.add(keras.layers.Dense(256, activation = 'relu'))
 model0.add(keras.layers.Dense(256, activation = 'relu'))
 model0.add(keras.layers.Dense(5, activation = "relu"))
+
+
+
+
+# Model LSTM
+# model0 = keras.models.Sequential()
+# model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+# model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model0.add(keras.layers.MaxPooling2D((1,2)))
+
+# model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model0.add(keras.layers.MaxPooling2D((2,2)))
+
+# model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model0.add(keras.layers.MaxPooling2D((2,2)))
+
+# model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+# model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+# model0.add(keras.layers.MaxPooling2D((2,2)))
+
+# # Prep for recurrent layer
+# model0.add(keras.layers.Reshape(target_shape = (128, -1)))
+# model0.add(keras.layers.LSTM(units = 256))
+
+# # # Dense Layer
+
+
+# model0.add(keras.layers.Dense(256, activation = 'relu'))
+# model0.add(keras.layers.Dense(256, activation = 'relu'))
+# model0.add(keras.layers.Dense(5, activation = "relu"))
 # mein Andi ist der beste!! u got this bebi <3
 
 
 
 
 def schedular(epoch, lr):
-    if epoch < 10: return lr
-    else: return lr * tf.math.exp(-0.01)
+    if epoch < 20: return lr
+    else: return lr * tf.math.exp(-0.002)
 
 
 def custom_loss(y_true, y_pred):
@@ -206,8 +206,8 @@ def custom_loss(y_true, y_pred):
 
 
 
-models = [model0]
-run_number = 5
+models = [model, model0]
+run_number = 6
 
 for model in models:
 
@@ -223,7 +223,7 @@ for model in models:
     # history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
     # eval = model.evaluate(test_generator)
 
-    history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 50, callbacks = [callback], verbose = 2)
+    history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 1000, callbacks = [callback], verbose = 2)
 
     # No callbacks
     # history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 200, verbose = 2)
