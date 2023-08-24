@@ -157,27 +157,65 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 
 # Model 5
-model_5 = keras.models.Sequential()
-model_5.add(keras.layers.Conv2D(64, (7, 19), activation = "relu", input_shape = (79, 2001, 1)))
-model_5.add(keras.layers.MaxPooling2D((1,2)))
+model0 = keras.models.Sequential()
+model0.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model0.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+model0.add(keras.layers.MaxPooling2D((1,2)))
 
-model_5.add(keras.layers.Conv2D(128, (5, 15), activation = "relu"))
-model_5.add(keras.layers.MaxPooling2D((2,2)))
+model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model0.add(keras.layers.MaxPooling2D((2,2)))
 
-model_5.add(keras.layers.Conv2D(256, (5, 11), activation = "relu"))
-model_5.add(keras.layers.MaxPooling2D((2,2)))
+model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model0.add(keras.layers.MaxPooling2D((2,2)))
 
-model_5.add(keras.layers.Conv2D(512, (3, 7), activation = "relu"))
-model_5.add(keras.layers.MaxPooling2D((2,2)))
+model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model0.add(keras.layers.MaxPooling2D((2,2)))
 
 # # Dense Layer
 
-model_5.add(keras.layers.Flatten())
+model0.add(keras.layers.Flatten())
+model0.add(keras.layers.Dense(128, activation = 'relu'))
+model0.add(keras.layers.Dense(128, activation = 'relu'))
+model0.add(keras.layers.Dense(128, activation = 'relu'))
+model0.add(keras.layers.Dense(5, activation = "relu"))
 
-model_5.add(keras.layers.Dense(512, activation = 'relu'))
-model_5.add(keras.layers.Dense(512, activation = 'relu'))
-model_5.add(keras.layers.Dense(5, activation = "relu"))
+# Model 2
+model1 = keras.models.Sequential()
 
+model1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model1.add(keras.layers.MaxPooling2D((1,2)))
+
+model1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model1.add(keras.layers.MaxPooling2D((2,2)))
+
+model1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model1.add(keras.layers.MaxPooling2D((2,2)))
+
+model1.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model1.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model1.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model1.add(keras.layers.MaxPooling2D((2,2)))
+
+# # Dense Layer
+
+model1.add(keras.layers.Flatten())
+model1.add(keras.layers.Dense(256, activation = 'relu'))
+model1.add(keras.layers.Dense(256, activation = 'relu'))
+model1.add(keras.layers.Dense(256, activation = 'relu'))
+model1.add(keras.layers.Dense(5, activation = "relu"))
 
 
 
@@ -198,7 +236,7 @@ def custom_loss(y_true, y_pred):
 
 
 
-models = [model_5]
+models = [model0, model1]
 run_number = 5
 
 for model in models:
@@ -215,7 +253,11 @@ for model in models:
     # history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
     # eval = model.evaluate(test_generator)
 
-    history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 50, callbacks = [callback], verbose = 2)
+    # history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 50, callbacks = [callback], verbose = 2)
+
+    # No callbacks
+    history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 50, verbose = 2)
+
     eval = model.evaluate(x = test_data, y = test_labels)
 
     print(eval)
