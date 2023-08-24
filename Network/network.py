@@ -191,7 +191,7 @@ model0.add(keras.layers.Dense(5, activation = "relu"))
 
 def schedular(epoch, lr):
     if epoch < 20: return lr
-    else: return lr * tf.math.exp(-0.002)
+    else: return lr * tf.math.exp(-0.02)
 
 
 def custom_loss(y_true, y_pred):
@@ -223,7 +223,7 @@ for model in models:
     # history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
     # eval = model.evaluate(test_generator)
 
-    history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 1000, callbacks = [callback], verbose = 2)
+    history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 100, callbacks = [callback], verbose = 2)
 
     # No callbacks
     # history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 200, verbose = 2)
