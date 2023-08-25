@@ -128,30 +128,30 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 
 # run 1.03
-model1 = keras.models.Sequential()
-model1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model1.add(keras.layers.MaxPooling2D((1,2)))
+# model1 = keras.models.Sequential()
+# model1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+# model1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model1.add(keras.layers.MaxPooling2D((1,2)))
 
-model1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model1.add(keras.layers.MaxPooling2D((2,2)))
+# model1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model1.add(keras.layers.MaxPooling2D((2,2)))
 
-model1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model1.add(keras.layers.MaxPooling2D((2,2)))
+# model1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model1.add(keras.layers.MaxPooling2D((2,2)))
 
-model1.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-model1.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-model1.add(keras.layers.MaxPooling2D((2,2)))
+# model1.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+# model1.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+# model1.add(keras.layers.MaxPooling2D((2,2)))
 
-model1.add(keras.layers.Flatten())
+# model1.add(keras.layers.Flatten())
 
-# # Dense Layer
+# # # Dense Layer
 
-model1.add(keras.layers.Dense(256, activation = 'relu'))
-model1.add(keras.layers.Dense(256, activation = 'relu'))
-model1.add(keras.layers.Dense(5, activation = "relu"))
+# model1.add(keras.layers.Dense(256, activation = 'relu'))
+# model1.add(keras.layers.Dense(256, activation = 'relu'))
+# model1.add(keras.layers.Dense(5, activation = "relu"))
 
 
 
@@ -207,8 +207,8 @@ early_stopping = keras.callbacks.EarlyStopping(monitor = "val_loss", patience = 
 
 
 
-models = [model1, model0]
-run_number = 9
+models = [model0]
+run_number = 10
 
 for model in models:
 
@@ -240,6 +240,5 @@ for model in models:
     np.save('./network_output/run_1.{:02}/history_1.{:02}.npy'.format(run_number, run_number), history.history)
     # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
-    keras.backend.clear_session()
 
     run_number += 1
