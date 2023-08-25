@@ -128,30 +128,30 @@ model.add(keras.layers.Dense(5, activation = "relu"))
 
 
 # run 1.03
-model0 = keras.models.Sequential()
-model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model0.add(keras.layers.MaxPooling2D((1,2)))
+# model0 = keras.models.Sequential()
+# model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+# model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model0.add(keras.layers.MaxPooling2D((1,2)))
 
-model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model0.add(keras.layers.MaxPooling2D((2,2)))
+# model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model0.add(keras.layers.MaxPooling2D((2,2)))
 
-model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model0.add(keras.layers.MaxPooling2D((2,2)))
+# model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model0.add(keras.layers.MaxPooling2D((2,2)))
 
-model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-model0.add(keras.layers.MaxPooling2D((2,2)))
+# model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+# model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+# model0.add(keras.layers.MaxPooling2D((2,2)))
 
-model0.add(keras.layers.Flatten())
+# model0.add(keras.layers.Flatten())
 
-# # Dense Layer
+# # # Dense Layer
 
-model0.add(keras.layers.Dense(256, activation = 'relu'))
-model0.add(keras.layers.Dense(256, activation = 'relu'))
-model0.add(keras.layers.Dense(5, activation = "relu"))
+# model0.add(keras.layers.Dense(256, activation = 'relu'))
+# model0.add(keras.layers.Dense(256, activation = 'relu'))
+# model0.add(keras.layers.Dense(5, activation = "relu"))
 
 
 
@@ -190,7 +190,7 @@ model0.add(keras.layers.Dense(5, activation = "relu"))
 
 
 def schedular(epoch, lr):
-    if epoch < 20: return lr
+    if epoch < 10: return lr
     else: return lr * tf.math.exp(-0.02)
 
 
@@ -203,11 +203,12 @@ def custom_loss(y_true, y_pred):
 
         return tf.reduce_mean(metric, axis = -1)
 
+early_stopping = keras.callbacks.EarlyStopping(monitor = "val_loss", patience = 10, restore_best_weights = True, verbose = 1)
 
 
 
-models = [model0]
-run_number = 7
+models = [model]
+run_number = 8
 
 for model in models:
 
@@ -217,13 +218,13 @@ for model in models:
             loss = "mse",
             metrics=[custom_loss])
 
-    callback = tf.keras.callbacks.LearningRateScheduler(schedular)
+    lr_schedule = tf.keras.callbacks.LearningRateScheduler(schedular)
 
     # generator 
     # history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
     # eval = model.evaluate(test_generator)
 
-    history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 100, callbacks = [callback], verbose = 2)
+    history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 100, callbacks = [lr_schedule, early_stopping], verbose = 2)
 
     # No callbacks
     # history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 200, verbose = 2)
