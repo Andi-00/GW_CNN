@@ -206,8 +206,8 @@ def custom_loss(y_true, y_pred):
 
 
 
-models = [model, model0]
-run_number = 6
+models = [model0]
+run_number = 7
 
 for model in models:
 
