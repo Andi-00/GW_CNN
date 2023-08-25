@@ -102,88 +102,88 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 
 # Gutes Network (run 20 und co)
-model = keras.models.Sequential()
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((2,2)))
+# model = keras.models.Sequential()
+# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((2,2)))
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((2,2)))
+# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((2,2)))
-
-# # Dense Layer
-
-model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(128, activation = 'relu'))
-model.add(keras.layers.Dense(128, activation = 'relu'))
-model.add(keras.layers.Dense(5, activation = "relu"))
-
-
-# run 1.03
-# model0 = keras.models.Sequential()
-# model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-# model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model0.add(keras.layers.MaxPooling2D((1,2)))
-
-# model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model0.add(keras.layers.MaxPooling2D((2,2)))
-
-# model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model0.add(keras.layers.MaxPooling2D((2,2)))
-
-# model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-# model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-# model0.add(keras.layers.MaxPooling2D((2,2)))
-
-# model0.add(keras.layers.Flatten())
+# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
 
 # # # Dense Layer
 
-# model0.add(keras.layers.Dense(256, activation = 'relu'))
-# model0.add(keras.layers.Dense(256, activation = 'relu'))
-# model0.add(keras.layers.Dense(5, activation = "relu"))
+# model.add(keras.layers.Flatten())
+# model.add(keras.layers.Dense(128, activation = 'relu'))
+# model.add(keras.layers.Dense(128, activation = 'relu'))
+# model.add(keras.layers.Dense(5, activation = "relu"))
+
+
+# run 1.03
+model1 = keras.models.Sequential()
+model1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model1.add(keras.layers.MaxPooling2D((1,2)))
+
+model1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model1.add(keras.layers.MaxPooling2D((2,2)))
+
+model1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model1.add(keras.layers.MaxPooling2D((2,2)))
+
+model1.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model1.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model1.add(keras.layers.MaxPooling2D((2,2)))
+
+model1.add(keras.layers.Flatten())
+
+# # Dense Layer
+
+model1.add(keras.layers.Dense(256, activation = 'relu'))
+model1.add(keras.layers.Dense(256, activation = 'relu'))
+model1.add(keras.layers.Dense(5, activation = "relu"))
 
 
 
 
 # Model LSTM
-# model0 = keras.models.Sequential()
-# model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-# model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model0.add(keras.layers.MaxPooling2D((1,2)))
+model0 = keras.models.Sequential()
+model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model0.add(keras.layers.MaxPooling2D((1,2)))
 
-# model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model0.add(keras.layers.MaxPooling2D((2,2)))
+model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model0.add(keras.layers.MaxPooling2D((2,2)))
 
-# model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model0.add(keras.layers.MaxPooling2D((2,2)))
+model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model0.add(keras.layers.MaxPooling2D((2,2)))
 
-# model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-# model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-# model0.add(keras.layers.MaxPooling2D((2,2)))
+model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model0.add(keras.layers.MaxPooling2D((2,2)))
 
-# # Prep for recurrent layer
-# model0.add(keras.layers.Reshape(target_shape = (128, -1)))
-# model0.add(keras.layers.LSTM(units = 256))
+# Prep for recurrent layer
+model0.add(keras.layers.Reshape(target_shape = (128, -1)))
+model0.add(keras.layers.LSTM(units = 256))
 
-# # # Dense Layer
+# # Dense Layer
 
 
-# model0.add(keras.layers.Dense(256, activation = 'relu'))
-# model0.add(keras.layers.Dense(256, activation = 'relu'))
-# model0.add(keras.layers.Dense(5, activation = "relu"))
+model0.add(keras.layers.Dense(256, activation = 'relu'))
+model0.add(keras.layers.Dense(256, activation = 'relu'))
+model0.add(keras.layers.Dense(5, activation = "relu"))
 # mein Andi ist der beste!! u got this bebi <3
 
 
@@ -203,12 +203,12 @@ def custom_loss(y_true, y_pred):
 
         return tf.reduce_mean(metric, axis = -1)
 
-early_stopping = keras.callbacks.EarlyStopping(monitor = "val_loss", patience = 10, restore_best_weights = True, verbose = 1)
+early_stopping = keras.callbacks.EarlyStopping(monitor = "val_loss", patience = 20, restore_best_weights = True, verbose = 1)
 
 
 
-models = [model]
-run_number = 8
+models = [model1, model0]
+run_number = 9
 
 for model in models:
 
@@ -240,6 +240,6 @@ for model in models:
     np.save('./network_output/run_1.{:02}/history_1.{:02}.npy'.format(run_number, run_number), history.history)
     # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
-    
+    keras.backend.clear_session()
 
     run_number += 1
