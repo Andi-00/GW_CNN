@@ -26,7 +26,7 @@ plt.rcParams['savefig.pad_inches'] = 0.1
 plt.rcParams['figure.figsize'] = (10, 6)
 
 # Load the model
-n_run = 5
+n_run = 11
 
 model = keras.models.load_model("./Network/network_output/run_1.{:02}/model_1.{:02}.keras".format(n_run, n_run), compile = False)
 
