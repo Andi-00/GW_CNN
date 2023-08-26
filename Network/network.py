@@ -165,7 +165,7 @@ model0.add(keras.layers.MaxPooling2D((1,2)))
 
 model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
 model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model0.add(keras.layers.MaxPooling2D((1,2)))
+model0.add(keras.layers.MaxPooling2D((2,2)))
 
 model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
 model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
