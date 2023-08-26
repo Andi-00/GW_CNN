@@ -192,7 +192,7 @@ model0.add(keras.layers.Dense(5, activation = "relu"))
 
 def schedular(epoch, lr):
     if epoch < 10: return lr
-    else: return lr * tf.math.exp(-0.1)
+    else: return lr * tf.math.exp(-0.05)
 
 
 def custom_loss(y_true, y_pred):
