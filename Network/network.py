@@ -158,7 +158,7 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 # Model LSTM
 model0 = keras.models.Sequential()
-model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"), input_shape = (79, 2001, 1))
+model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
 model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
 model0.add(keras.layers.MaxPooling2D((2,2)))
 
