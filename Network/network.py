@@ -209,15 +209,15 @@ early_stopping = keras.callbacks.EarlyStopping(monitor = "val_loss", patience = 
 
 
 models = [model0]
-run_number = 12
+run_number = 11
 
 for model in models:
 
     model.summary()
 
     model.compile(optimizer = "Adam",
-            loss = "mean_absolute_error",
-            metrics=["mse"])
+            loss = "mse",
+            metrics=[custom_loss])
 
     lr_schedule = tf.keras.callbacks.LearningRateScheduler(schedular)
 
