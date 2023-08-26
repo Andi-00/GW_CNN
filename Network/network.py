@@ -177,7 +177,7 @@ model0.add(keras.layers.MaxPooling2D((2,2)))
 
 
 # Prep for recurrent layer
-model0.add(keras.layers.Reshape(target_shape = (256, -1)))
+model0.add(keras.layers.Reshape(target_shape = (128, -1)))
 model0.add(keras.layers.LSTM(units = 256))
 
 # # Dense Layer
@@ -192,7 +192,7 @@ model0.add(keras.layers.Dense(5, activation = "relu"))
 
 def schedular(epoch, lr):
     if epoch < 10: return lr
-    else: return lr * tf.math.exp(-0.05)
+    else: return lr * tf.math.exp(-0.1)
 
 
 def custom_loss(y_true, y_pred):
@@ -209,7 +209,7 @@ early_stopping = keras.callbacks.EarlyStopping(monitor = "val_loss", patience = 
 
 
 models = [model0]
-run_number = 11
+run_number = 13
 
 for model in models:
 
