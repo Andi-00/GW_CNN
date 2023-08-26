@@ -8,14 +8,14 @@
 #SBATCH --gres=gpu:volta:1
 
 # name the job
-#SBATCH --job-name=run_1.13
+#SBATCH --job-name=run_1.14
 #SBATCH --account=rwth0754
 #SBATCH --partition=c18g
 #SBATCH --mem-per-cpu=100G
 
 
 ### OUTPUT
-#SBATCH --output=./network_output/outputs/run_1.13.txt
+#SBATCH --output=./network_output/outputs/run_1.14.txt
 
 ### your code goes here
 
