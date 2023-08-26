@@ -158,28 +158,34 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 # Model LSTM
 model0 = keras.models.Sequential()
-model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model0.add(keras.layers.MaxPooling2D((1,2)))
-
-model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"), input_shape = (79, 2001, 1))
 model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
 model0.add(keras.layers.MaxPooling2D((2,2)))
 
 model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
 model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
 model0.add(keras.layers.MaxPooling2D((2,2)))
+
+model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model0.add(keras.layers.MaxPooling2D((2,2)))
+
+model0.add(keras.layers.Conv2D(512, (3, 3), activation = "relu"))
+model0.add(keras.layers.Conv2D(512, (3, 3), activation = "relu"))
+model0.add(keras.layers.MaxPooling2D((2,2)))
+
+
 
 # Prep for recurrent layer
-model0.add(keras.layers.Reshape(target_shape = (128, -1)))
-model0.add(keras.layers.LSTM(units = 256))
+model0.add(keras.layers.Reshape(target_shape = (512, -1)))
+model0.add(keras.layers.LSTM(units = 512))
 
 # # Dense Layer
 
 
-model0.add(keras.layers.Dense(256, activation = 'relu'))
-model0.add(keras.layers.Dense(256, activation = 'relu'))
-model0.add(keras.layers.Dense(256, activation = 'relu'))
+model0.add(keras.layers.Dense(512, activation = 'relu'))
+model0.add(keras.layers.Dense(512, activation = 'relu'))
+model0.add(keras.layers.Dense(512, activation = 'relu'))
 model0.add(keras.layers.Dense(5, activation = "relu"))
 # mein Andi ist der beste!! u got this bebi <3
 
