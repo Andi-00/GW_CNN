@@ -27,7 +27,7 @@ data = np.genfromtxt("/hpcwork/cg457676/data/processed_parameter/pro_par9.csv", 
 
 M = data[:, 1]
 
-delta = np.genfromtxt("./Network/network_output/run_1.03/deltas.txt", delimiter = ",")
+delta = np.genfromtxt("./Network/network_output/run_1.13/deltas.txt", delimiter = ",")
 
 a = delta[:, 2]
 
@@ -39,4 +39,4 @@ ax.grid()
 ax.set_ylabel(r"$|a_\mathrm{True} - a_\mathrm{Prediction}|$")
 ax.set_xlabel(r"$\tilde M_\mathrm{True}$")
 
-plt.savefig("./a_M.png")
+plt.savefig("./a_M(run1.13).png")

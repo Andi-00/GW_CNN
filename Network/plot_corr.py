@@ -25,10 +25,10 @@ plt.rcParams['savefig.pad_inches'] = 0.1
 plt.rcParams['figure.figsize'] = (10, 6)
 
 
-n_run = 14
+n_run = 9
 
-# data = pd.read_csv("./Network/network_output/run_{}/deltas.txt".format(n_run), delimiter = ",", names = ["Mass", "Distance", "Spin", "Eccentricity", "Seperation"])
-data = pd.read_csv("/hpcwork/cg457676/data/processed_parameter/pro_par0.csv", delimiter = ",", names = ["Mass", "Distance", "Spin", "Eccentricity", "Seperation"])
+data = pd.read_csv("./Network/network_output/run_1.{:02}/deltas.txt".format(n_run), delimiter = ",", names = ["Mass", "Distance", "Spin", "Eccentricity", "Seperation"])
+# data = pd.read_csv("/hpcwork/cg457676/data/processed_parameter/pro_par9.csv", delimiter = ",", names = ["Mass", "Distance", "Spin", "Eccentricity", "Seperation"])
 
 print(np.min(data), np.max(data))
 
@@ -41,8 +41,8 @@ plot.map_lower(sns.scatterplot, s = 5)
 plot.map_diag(sns.histplot, kde=True)
 
 
-plot.fig.suptitle('Correlations in the generated data')
-plt.savefig("Test.png")
+plot.fig.suptitle('Correlations run 1.{:02}'.format(n_run))
+plt.savefig("Corr_run_1.{:02}.png".format(n_run))
 
 # plot.fig.suptitle('Correlations in run {}'.format(n_run))
 # plt.savefig("./Network/network_output/run_{}/corr.png".format(n_run))
