@@ -86,7 +86,7 @@ def schedular(epoch, lr):
 
 
 def custom_loss(y_true, y_pred):
-        val = tf.constant([4.0, 1.0, 0.0, 0.1, 10.0])
+        val = tf.constant([4.0, 1.0, 0.1, 10.0])
         val = y_true + val
 
         metric = tf.math.abs(y_true - y_pred) / val
