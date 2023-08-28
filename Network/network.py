@@ -39,120 +39,6 @@ print("end loading data")
 dauer = time.time() - s
 print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
-# Generators for reading the data sets
-
-# data_input_shape = (79, 2001, 1)
-# lab_inut_shape = (5, 1)
-
-
-# # data generator
-# def data_generator(file_paths, labels, split = "train", batchsize = 32):
-
-#     if split == "train" :
-#         a = 0
-#         b = 0.8
-
-#     elif split == "validation":
-#         a = 0.8
-#         b = 0.9
-#     else :
-#         a = 0.9
-#         b = 1
-    
-#     n = len(file_paths)
-#     file_pth = file_paths[int(a * n) : int(b * n)]
-#     lab = labels[int(a * n) : int(b * n)]
-
-#     for i in range(0, len(file_pth), batchsize):
-
-#         data_paths = file_pth[i : i + batchsize]
-#         data = np.reshape(np.array([np.genfromtxt(path, delimiter = ",") for path in data_paths]), (-1, 79, 2001, 1))
-#         labs = np.reshape(lab[i : i + batchsize], (-1, 5, 1))
-
-#         yield data, labs
-
-# output = (tf.TensorSpec(shape = [None, *data_input_shape], dtype = tf.float64), tf.TensorSpec(shape = [None, *lab_inut_shape], dtype = tf.float64))
-
-# train_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "train"), output_signature = output)
-# valid_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "validation"), output_signature = output)
-# test_generator = tf.data.Dataset.from_generator(lambda : data_generator(files, parameter, split = "test"), output_signature = output)
-
-
-# Creating the model of the CNN
-
-# model = keras.models.Sequential()
-# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
-
-# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
-
-# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
-
-# # Dense Layers
-
-# model.add(keras.layers.Flatten())
-# model.add(keras.layers.Dense(64, activation = 'relu'))
-# model.add(keras.layers.Dense(64, activation = 'relu'))
-# model.add(keras.layers.Dense(5, activation = "relu"))
-
-
-# Gutes Network (run 20 und co)
-# model = keras.models.Sequential()
-# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-# model.add(keras.layers.Conv2D(16, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
-
-# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
-
-# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
-
-# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model.add(keras.layers.MaxPooling2D((2,2)))
-
-# # # Dense Layer
-
-# model.add(keras.layers.Flatten())
-# model.add(keras.layers.Dense(128, activation = 'relu'))
-# model.add(keras.layers.Dense(128, activation = 'relu'))
-# model.add(keras.layers.Dense(5, activation = "relu"))
-
-
-# run 1.03
-# model1 = keras.models.Sequential()
-# model1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-# model1.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-# model1.add(keras.layers.MaxPooling2D((1,2)))
-
-# model1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model1.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-# model1.add(keras.layers.MaxPooling2D((2,2)))
-
-# model1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model1.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-# model1.add(keras.layers.MaxPooling2D((2,2)))
-
-# model1.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-# model1.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-# model1.add(keras.layers.MaxPooling2D((2,2)))
-
-# model1.add(keras.layers.Flatten())
-
-# # # Dense Layer
-
-# model1.add(keras.layers.Dense(256, activation = 'relu'))
-# model1.add(keras.layers.Dense(256, activation = 'relu'))
-# model1.add(keras.layers.Dense(5, activation = "relu"))
-
 
 
 
@@ -177,7 +63,7 @@ model0.add(keras.layers.MaxPooling2D((2,2)))
 
 
 # Prep for recurrent layer
-model0.add(keras.layers.Reshape(target_shape = (32, -1)))
+model0.add(keras.layers.Reshape(target_shape = (64, -1)))
 model0.add(keras.layers.LSTM(units = 256))
 
 # # Dense Layer
