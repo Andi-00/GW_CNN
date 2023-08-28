@@ -177,7 +177,7 @@ model0.add(keras.layers.MaxPooling2D((2,2)))
 
 
 # Prep for recurrent layer
-model0.add(keras.layers.Reshape(target_shape = (256, -1)))
+model0.add(keras.layers.Reshape(target_shape = (32, -1)))
 model0.add(keras.layers.LSTM(units = 256))
 
 # # Dense Layer
