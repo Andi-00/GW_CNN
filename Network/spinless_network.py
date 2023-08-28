@@ -3,16 +3,20 @@ import tensorflow as tf
 import numpy as np
 
 # Number of datasets with n_max = 1E4
-n_data = 2
+n_data = 10000
 
 tf.random.set_seed(1234)
 
 # Read CSV files (parameter and data sets)
 parameter = np.zeros((n_data, 5))
 
+print(parameter.shape)
+
 for i in range((n_data - 1) // 1000 + 1):
     parameter[1000 * i : min(1000 * (i + 1), n_data)] = np.genfromtxt("/hpcwork/cg457676/data/processed_parameter/pro_par{}.csv".format(i), delimiter = ",")[: min(1000, n_data - i * 1000)]
 
+parameter = np.delete(parameter, 2, axis = 1)
+print(parameter.shape)
 
 files = ["/hpcwork/cg457676/data/Processed_Data_0/" + "pspec0_{:05}.csv".format(i) for i in range(n_data)]
 
@@ -29,7 +33,7 @@ train_data = np.reshape(np.array([np.genfromtxt(f, delimiter = ",") for f in fil
 valid_data = np.reshape(np.array([np.genfromtxt(f, delimiter = ",") for f in files[a : b]]), (-1, 79, 2001, 1))
 test_data = np.reshape(np.array([np.genfromtxt(f, delimiter = ",") for f in files[b :]]), (-1, 79, 2001, 1))
 
-print(train_data.shape)
+print(parameter.shape)
 
 train_labels = np.reshape(parameter[: a], (-1, 4, 1))
 valid_labels = np.reshape(parameter[a : b], (-1, 4, 1))
