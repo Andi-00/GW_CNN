@@ -87,8 +87,8 @@ print(train_data.shape)
 
 # LSTM 
 model = keras.models.Sequential()
-model.add(keras.layers.ConvLSTM2D(64, (3, 3), input_shape = (25, 80, 80, 1), return_sequences = True))
-model.add(keras.layers.ConvLSTM2D(64, (3, 3)))
+model.add(keras.layers.ConvLSTM2D(64, (3, 3), input_shape = (25, 80, 80, 1)))
+model.add(keras.layers.Conv2D(64, (3, 3)))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 model.add(keras.layers.Conv2D(128, (3, 3)))
