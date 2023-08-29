@@ -43,35 +43,70 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 
 # Model LSTM
+# model = keras.models.Sequential()
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+# model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((1,2)))
+
+# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
+
+# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
+
+# model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+# model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+# model.add(keras.layers.MaxPooling2D((2,2)))
+
+
+# # Prep for recurrent layer
+# model.add(keras.layers.Reshape(target_shape = (64, -1)))
+# model.add(keras.layers.LSTM(units = 256))
+
+# # # Dense Layer
+
+# model.add(keras.layers.Dense(256, activation = 'relu'))
+# model.add(keras.layers.Dense(256, activation = 'relu'))
+# model.add(keras.layers.Dense(5, activation = "relu"))
+# mein Andi ist der beste!! u got this bebi <3
+
+# Make the data of shape (-1, 80, 2001, 1)
+
+train_data = np.pad(train_data, ((0, 0), (0, 1), (0, 0), (0, 0)))[:, :, : 2000, :]
+train_data = np.reshape(train_data, (-1, 25, 80, 80, 1))
+
+valid_data = np.pad(valid_data, ((0, 0), (0, 1), (0, 0), (0, 0)))[:, :, : 2000, :]
+valid_data = np.reshape(valid_data, (-1, 25, 80, 80, 1))
+
+test_data = np.pad(test_data, ((0, 0), (0, 1), (0, 0), (0, 0)))[:, :, : 2000, :]
+test_data = np.reshape(test_data, (-1, 25, 80, 80, 1))
+
+print(train_data.shape)
+
+# LSTM 
 model = keras.models.Sequential()
-
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((1,2)))
-
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.ConvLSTM2D(64, (3, 3), input_shape = (25, 80, 80, 1), return_sequences = True))
+model.add(keras.layers.ConvLSTM2D(64, (3, 3)))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(128, (3, 3)))
+model.add(keras.layers.Conv2D(128, (3, 3)))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(256, (3, 3)))
+model.add(keras.layers.Conv2D(256, (3, 3)))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 
-# Prep for recurrent layer
-model.add(keras.layers.Reshape(target_shape = (64, -1)))
-model.add(keras.layers.LSTM(units = 256))
+
 
 # # Dense Layer
-
+model.add(keras.layers.Flatten())
 model.add(keras.layers.Dense(256, activation = 'relu'))
 model.add(keras.layers.Dense(256, activation = 'relu'))
 model.add(keras.layers.Dense(5, activation = "relu"))
-# mein Andi ist der beste!! u got this bebi <3
 
 
 
@@ -95,7 +130,7 @@ early_stopping = keras.callbacks.EarlyStopping(monitor = "val_loss", patience = 
 
 
 
-run_number = 14
+run_number = 16
 
 
 model.summary()
