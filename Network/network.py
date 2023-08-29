@@ -43,34 +43,34 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 
 # Model LSTM
-model0 = keras.models.Sequential()
+model = keras.models.Sequential()
 
-model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
-model0.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
-model0.add(keras.layers.MaxPooling2D((1,2)))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu", input_shape = (79, 2001, 1)))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((1,2)))
 
-model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model0.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model0.add(keras.layers.MaxPooling2D((2,2)))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
-model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model0.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
-model0.add(keras.layers.MaxPooling2D((2,2)))
+model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
-model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-model0.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
-model0.add(keras.layers.MaxPooling2D((2,2)))
+model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
 
 
 # Prep for recurrent layer
-model0.add(keras.layers.Reshape(target_shape = (64, -1)))
-model0.add(keras.layers.LSTM(units = 256))
+model.add(keras.layers.Reshape(target_shape = (64, -1)))
+model.add(keras.layers.LSTM(units = 256))
 
 # # Dense Layer
 
-model0.add(keras.layers.Dense(256, activation = 'relu'))
-model0.add(keras.layers.Dense(256, activation = 'relu'))
-model0.add(keras.layers.Dense(5, activation = "relu"))
+model.add(keras.layers.Dense(256, activation = 'relu'))
+model.add(keras.layers.Dense(256, activation = 'relu'))
+model.add(keras.layers.Dense(5, activation = "relu"))
 # mein Andi ist der beste!! u got this bebi <3
 
 
@@ -94,38 +94,35 @@ early_stopping = keras.callbacks.EarlyStopping(monitor = "val_loss", patience = 
 
 
 
-models = [model0]
+
 run_number = 14
 
-for model in models:
 
-    model.summary()
+model.summary()
 
-    model.compile(optimizer = "Adam",
-            loss = "mse",
-            metrics=[custom_loss])
+model.compile(optimizer = "Adam",
+        loss = "mse",
+        metrics=[custom_loss])
 
-    lr_schedule = tf.keras.callbacks.LearningRateScheduler(schedular)
+lr_schedule = tf.keras.callbacks.LearningRateScheduler(schedular)
 
-    # generator 
-    # history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
-    # eval = model.evaluate(test_generator)
+# generator 
+# history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
+# eval = model.evaluate(test_generator)
 
-    history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 100, callbacks = [lr_schedule, early_stopping], verbose = 2)
+history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 100, callbacks = [lr_schedule, early_stopping], verbose = 2)
 
-    # No callbacks
-    # history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 200, verbose = 2)
+# No callbacks
+# history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 200, verbose = 2)
 
-    eval = model.evaluate(x = test_data, y = test_labels)
+eval = model.evaluate(x = test_data, y = test_labels)
 
-    print(eval)
+print(eval)
 
-    # save the model
-    model.save("./network_output/run_1.{:02}/model_1.{:02}.keras".format(run_number, run_number))
+# save the model
+model.save("./network_output/run_1.{:02}/model_1.{:02}.keras".format(run_number, run_number))
 
-    # Save the history
-    np.save('./network_output/run_1.{:02}/history_1.{:02}.npy'.format(run_number, run_number), history.history)
-    # history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
+# Save the history
+np.save('./network_output/run_1.{:02}/history_1.{:02}.npy'.format(run_number, run_number), history.history)
+# history = np.load("./my_first_model.keras", allow_pickle='TRUE').item()
 
-
-    run_number += 1
