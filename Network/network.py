@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 
 # Number of datasets with n_max = 1E4
-n_data = 10
+n_data = 10000
 
 tf.random.set_seed(1234)
 
