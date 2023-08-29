@@ -51,6 +51,10 @@ da = np.abs(data[:, 2] - predict[:, 2])
 de = np.abs(data[:, 3] - predict[:, 3])
 dp = np.abs(data[:, 4] - predict[:, 4])
 
+# da = 0
+# de = np.abs(data[:, 3] - predict[:, 2])
+# dp = np.abs(data[:, 4] - predict[:, 3])
+
 Mp = dM / (data[:, 0] + 4)
 dp = dd / (data[:, 1] + 1)
 ap = da / data[:, 2]
