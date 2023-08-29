@@ -145,7 +145,7 @@ lr_schedule = tf.keras.callbacks.LearningRateScheduler(schedular)
 # history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
 # eval = model.evaluate(test_generator)
 
-history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 100, callbacks = [lr_schedule, early_stopping], verbose = 2)
+history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 100, callbacks = [lr_schedule, early_stopping], verbose = 2, batch_size = 16)
 
 # No callbacks
 # history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 200, verbose = 2)
