@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 
 # Number of datasets with n_max = 1E4
-n_data = 10000
+n_data = 10
 
 tf.random.set_seed(1234)
 
@@ -74,36 +74,38 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 # Make the data of shape (-1, 80, 2001, 1)
 
-train_data = np.pad(train_data, ((0, 0), (0, 1), (0, 0), (0, 0)))[:, :, : 2000, :]
-train_data = np.reshape(train_data, (-1, 25, 80, 80, 1))
+# train_data = np.pad(train_data, ((0, 0), (0, 1), (0, 0), (0, 0)))[:, :, : 2000, :]
+# train_data = np.reshape(train_data, (-1, 25, 80, 80, 1))
 
-valid_data = np.pad(valid_data, ((0, 0), (0, 1), (0, 0), (0, 0)))[:, :, : 2000, :]
-valid_data = np.reshape(valid_data, (-1, 25, 80, 80, 1))
+# valid_data = np.pad(valid_data, ((0, 0), (0, 1), (0, 0), (0, 0)))[:, :, : 2000, :]
+# valid_data = np.reshape(valid_data, (-1, 25, 80, 80, 1))
 
-test_data = np.pad(test_data, ((0, 0), (0, 1), (0, 0), (0, 0)))[:, :, : 2000, :]
-test_data = np.reshape(test_data, (-1, 25, 80, 80, 1))
+# test_data = np.pad(test_data, ((0, 0), (0, 1), (0, 0), (0, 0)))[:, :, : 2000, :]
+# test_data = np.reshape(test_data, (-1, 25, 80, 80, 1))
 
-print(train_data.shape)
+# print(train_data.shape)
 
 # LSTM 
 model = keras.models.Sequential()
-model.add(keras.layers.ConvLSTM2D(64, (3, 3), input_shape = (25, 80, 80, 1)))
-model.add(keras.layers.Conv2D(64, (3, 3)))
+model.add(keras.layers.Conv2D(32, (3, 3), input_shape = (79, 2001, 1), activation = "relu"))
+model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((1,2)))
+
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(128, (3, 3)))
-model.add(keras.layers.Conv2D(128, (3, 3)))
+model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
-model.add(keras.layers.Conv2D(256, (3, 3)))
-model.add(keras.layers.Conv2D(256, (3, 3)))
+model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
+model.add(keras.layers.Reshape(target_shape = (128, -1)))
+model.add(keras.layers.GRU(units = 256))
 
-
-
-# # Dense Layer
-model.add(keras.layers.Flatten())
 model.add(keras.layers.Dense(256, activation = 'relu'))
 model.add(keras.layers.Dense(256, activation = 'relu'))
 model.add(keras.layers.Dense(5, activation = "relu"))
@@ -145,7 +147,7 @@ lr_schedule = tf.keras.callbacks.LearningRateScheduler(schedular)
 # history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
 # eval = model.evaluate(test_generator)
 
-history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 100, callbacks = [lr_schedule, early_stopping], verbose = 2, batch_size = 16)
+history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 100, callbacks = [lr_schedule, early_stopping], verbose = 2)
 
 # No callbacks
 # history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 200, verbose = 2)
