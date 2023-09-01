@@ -22,7 +22,7 @@ plt.rcParams['savefig.pad_inches'] = 0.1
 #plt.rcParams['savefig.transparent'] = True
 plt.rcParams['figure.figsize'] = (14, 6)
 
-s = 0
+s = 20
 n_data = 20
 
 parameter = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[s : s + n_data]
