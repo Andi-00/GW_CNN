@@ -24,27 +24,27 @@ plt.rcParams['savefig.pad_inches'] = 0.1
 #plt.rcParams['savefig.transparent'] = True
 plt.rcParams['figure.figsize'] = (10, 6)
 
+title = ["$\log_{10} M / M_\odot$", "$d_L$", "$a$", "$e_0$", "$p_0 / M$"]
 
-data = pd.read_csv("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",", names = ["Mass", "Distance", "Spin", "Eccentricity", "Seperation"])
+data = pd.read_csv("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",", names = title)
 
 for i in range(1, 10):
-    d = data = pd.read_csv("/hpcwork/cg457676/data/parameters/parameters_{}.csv".format(i), delimiter = ",", names = ["Mass", "Distance", "Spin", "Eccentricity", "Seperation"])
+    d = data = pd.read_csv("/hpcwork/cg457676/data/parameters/parameters_{}.csv".format(i), delimiter = ",", names = title)
     data.append(d)
 
-data["Mass"] = np.log10(data["Mass"])
+data[title[0]] = np.log10(data[title[0]])
 
 print(np.min(data), np.max(data))
 
 sns.set_theme()
 
-plot = sns.PairGrid(data, height = 2)
+plot = sns.PairGrid(data, height = 1.5)
 
 plot.map_upper(sns.kdeplot, fill = True)
 plot.map_lower(sns.scatterplot, s = 5)
 plot.map_diag(sns.histplot, kde=True)
 
 
-plot.fig.suptitle('Distributions and Correlations of the generated Parameter', y = 1.02)
 plt.savefig("./thesis_plots/chapter_4/corr.png")
 
 # plot.fig.suptitle('Correlations in run {}'.format(n_run))

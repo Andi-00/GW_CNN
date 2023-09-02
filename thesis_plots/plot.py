@@ -9,10 +9,10 @@ plt.rcParams['axes.formatter.useoffset'] = False
 plt.rcParams['lines.linewidth'] = 2
 plt.rcParams['errorbar.capsize'] = 2
 plt.rcParams['grid.linewidth'] = 0.5
-plt.rcParams['axes.labelsize'] = 18
-plt.rcParams['axes.titlesize'] = 18
-plt.rcParams['xtick.labelsize'] = 14
-plt.rcParams['ytick.labelsize'] = 14
+plt.rcParams['axes.labelsize'] = 24
+plt.rcParams['axes.titlesize'] = 24
+plt.rcParams['xtick.labelsize'] = 20
+plt.rcParams['ytick.labelsize'] = 20
 plt.rcParams['legend.title_fontsize'] = 14
 plt.rcParams['legend.fontsize'] = 14
 plt.rcParams['savefig.dpi'] = 300
@@ -20,7 +20,7 @@ plt.rcParams['savefig.bbox'] = 'tight'
 plt.rcParams['savefig.pad_inches'] = 0.1
 
 #plt.rcParams['savefig.transparent'] = True
-plt.rcParams['figure.figsize'] = (10, 5)
+plt.rcParams['figure.figsize'] = (12, 5)
 
 n = 36
 
@@ -28,7 +28,6 @@ parameter = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", 
 strain = np.genfromtxt("/hpcwork/cg457676/data/strains/h_{:05}.csv".format(n), delimiter = ",", dtype = complex)
 spec = np.swapaxes(np.genfromtxt("/hpcwork/cg457676/data/spectrograms/spec_{:05}.csv".format(n), delimiter = ","), 0, 1)
 
-print(len(strain))
 
 np.savetxt("./thesis_plots/chapter_4/parameter.csv", parameter, delimiter = ",")
 
@@ -44,7 +43,7 @@ y = strain[: N].real
 ax.plot(t, y * 1E25, color = "#e60049")
 ax.set_ylabel("Strain $h_+ / 10^{-25}$")
 ax.set_xlabel("Time $t / \mathrm{s}$")
-ax.set_title("Strain of dataset nr. {:04}".format(n), y = 1.02)
+ax.set_title("Strain of data set nr. {:04}".format(n), y = 1.02)
 
 ax.grid()
 
@@ -71,8 +70,8 @@ ax.set_ylabel("Frequency $f$")
 ax.set_xlabel("Time $t$ in days")
 # ax.colorbar(label=r'Gravitational wave amplitude [1/$\sqrt{\mathrm{Hz}}$]')
 
-plt.colorbar(pc, label=r'Gravitational wave amplitude [1/$\sqrt{\mathrm{Hz}}$]')
-ax.set_title("Spectrogram of dataset nr. {:04}".format(n), y = 1.02)
+plt.colorbar(pc, label=r'GW amplitude [1/$\sqrt{\mathrm{Hz}}$]')
+ax.set_title("Spectrogram of data set nr. {:04}".format(n), y = 1.02)
 
 
 ax.grid(False)
