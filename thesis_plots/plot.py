@@ -20,14 +20,15 @@ plt.rcParams['savefig.bbox'] = 'tight'
 plt.rcParams['savefig.pad_inches'] = 0.1
 
 #plt.rcParams['savefig.transparent'] = True
-plt.rcParams['figure.figsize'] = (12, 5)
+plt.rcParams['figure.figsize'] = (12, 6)
 
-n = 36
+n = 49
 
 parameter = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[n]
 strain = np.genfromtxt("/hpcwork/cg457676/data/strains/h_{:05}.csv".format(n), delimiter = ",", dtype = complex)
 spec = np.swapaxes(np.genfromtxt("/hpcwork/cg457676/data/spectrograms/spec_{:05}.csv".format(n), delimiter = ","), 0, 1)
 
+parameter[0] = np.log10(parameter[0])
 
 np.savetxt("./thesis_plots/chapter_4/parameter.csv", parameter, delimiter = ",")
 
