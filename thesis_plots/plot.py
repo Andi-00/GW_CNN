@@ -61,7 +61,7 @@ y = (np.arange(2E3 + 1) + 0.5) * 5E-5
 z = spec
 
 
-pc = ax.pcolormesh(x, y, z, norm = colors.LogNorm(vmin = np.max(spec) * 1E-6, vmax = np.max(spec)))
+pc = ax.pcolormesh(x, y, z, norm = colors.LogNorm(vmin = np.max(spec) * 1E-5, vmax = np.max(spec)))
 ax.set_yscale("log")
 
 ax.set_ylim(1E-4, 1E-1)
@@ -77,4 +77,4 @@ ax.set_title("Spectrogram of data set nr. {:04}".format(n), y = 1.02)
 
 ax.grid(False)
 
-plt.savefig("./thesis_plots/chapter_4/spec.png")
+plt.savefig("./thesis_plots/chapter_4/spec1E-5.png")
