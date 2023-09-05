@@ -115,7 +115,7 @@ model.add(keras.layers.Dense(5, activation = "relu"))
 
 def schedular(epoch, lr):
     if epoch < 10: return lr
-    else: return lr * tf.math.exp(-0.1)
+    else: return lr * tf.math.exp(-0.02)
 
 
 def custom_loss(y_true, y_pred):
@@ -127,12 +127,12 @@ def custom_loss(y_true, y_pred):
 
         return tf.reduce_mean(metric, axis = -1)
 
-early_stopping = keras.callbacks.EarlyStopping(monitor = "val_loss", patience = 20, restore_best_weights = True, verbose = 1)
+early_stopping = keras.callbacks.EarlyStopping(monitor = "val_loss", patience = 100, restore_best_weights = True, verbose = 1)
 
 
 
 
-run_number = 16
+run_number = 17
 
 
 model.summary()
@@ -147,7 +147,7 @@ lr_schedule = tf.keras.callbacks.LearningRateScheduler(schedular)
 # history = model.fit(train_generator, validation_data = valid_generator, epochs = 40, verbose = 2)
 # eval = model.evaluate(test_generator)
 
-history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 100, callbacks = [lr_schedule, early_stopping], verbose = 2)
+history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 1000, callbacks = [lr_schedule, early_stopping], verbose = 2)
 
 # No callbacks
 # history = model.fit(x = train_data, y = train_labels, validation_data = (valid_data, valid_labels), epochs = 200, verbose = 2)
