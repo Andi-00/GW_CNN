@@ -33,20 +33,20 @@ parameter[0] = np.log10(parameter[0])
 np.savetxt("./thesis_plots/chapter_4/parameter.csv", parameter, delimiter = ",")
 
 # Strain plot
-fig, ax = plt.subplots()
+# fig, ax = plt.subplots()
 
-N = 1000
+# N = 1000
 
-t = 5 * np.arange(N)
-y = strain[: N].real
+# t = 5 * np.arange(N)
+# y = strain[: N].real
 
 
-ax.plot(t, y * 1E25, color = "#e60049")
-ax.set_ylabel("Strain $h_+ / 10^{-25}$")
-ax.set_xlabel("Time $t / \mathrm{s}$")
-ax.set_title("Strain of data set nr. {:04}".format(n), y = 1.02)
+# ax.plot(t, y * 1E25, color = "#e60049")
+# ax.set_ylabel("Strain $h_+ / 10^{-25}$")
+# ax.set_xlabel("Time $t / \mathrm{s}$")
+# ax.set_title("Strain of data set nr. {:04}".format(n), y = 1.02)
 
-ax.grid()
+# ax.grid()
 
 import matplotlib.colors as colors
 

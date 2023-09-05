@@ -12,18 +12,18 @@ plt.rcParams['lines.linewidth'] = 2
 plt.rcParams['errorbar.capsize'] = 2
 
 plt.rcParams['grid.linewidth'] = 0.5
-plt.rcParams['axes.labelsize'] = 18
-plt.rcParams['axes.titlesize'] = 18
-plt.rcParams['xtick.labelsize'] = 14
-plt.rcParams['ytick.labelsize'] = 14
-plt.rcParams['legend.title_fontsize'] = 14
+plt.rcParams['axes.labelsize'] = 20
+plt.rcParams['axes.titlesize'] = 20
+plt.rcParams['xtick.labelsize'] = 16
+plt.rcParams['ytick.labelsize'] = 16
+plt.rcParams['legend.title_fontsize'] = 16
 plt.rcParams['legend.fontsize'] = 14
 plt.rcParams['savefig.dpi'] = 300
 plt.rcParams['savefig.bbox'] = 'tight'
 plt.rcParams['savefig.pad_inches'] = 0.1
 
 #plt.rcParams['savefig.transparent'] = True
-plt.rcParams['figure.figsize'] = (10, 6)
+plt.rcParams['figure.figsize'] = (10, 5)
 
 
 

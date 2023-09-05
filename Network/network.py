@@ -87,27 +87,27 @@ print("Dauer : {:02}:{:02} (min:sec)".format(int(dauer // 60), int(dauer % 60)))
 
 # LSTM 
 model = keras.models.Sequential()
-model.add(keras.layers.Conv2D(32, (3, 3), input_shape = (79, 2001, 1), activation = "relu"))
-model.add(keras.layers.Conv2D(32, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), input_shape = (79, 2001, 1), activation = "relu"))
+model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((1,2)))
 
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model.add(keras.layers.Conv2D(64, (3, 3), activation = "relu"))
-model.add(keras.layers.MaxPooling2D((2,2)))
-
 model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
 model.add(keras.layers.Conv2D(128, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
 model.add(keras.layers.Conv2D(256, (3, 3), activation = "relu"))
+model.add(keras.layers.MaxPooling2D((2,2)))
+
+model.add(keras.layers.Conv2D(512, (3, 3), activation = "relu"))
+model.add(keras.layers.Conv2D(512, (3, 3), activation = "relu"))
 model.add(keras.layers.MaxPooling2D((2,2)))
 
 model.add(keras.layers.Reshape(target_shape = (128, -1)))
 model.add(keras.layers.GRU(units = 256))
 
-model.add(keras.layers.Dense(256, activation = 'relu'))
-model.add(keras.layers.Dense(256, activation = 'relu'))
+model.add(keras.layers.Dense(512, activation = 'relu'))
+model.add(keras.layers.Dense(512, activation = 'relu'))
 model.add(keras.layers.Dense(5, activation = "relu"))
 
 
@@ -115,7 +115,7 @@ model.add(keras.layers.Dense(5, activation = "relu"))
 
 def schedular(epoch, lr):
     if epoch < 10: return lr
-    else: return lr * tf.math.exp(-0.02)
+    else: return lr * tf.math.exp(-0.05)
 
 
 def custom_loss(y_true, y_pred):
@@ -138,7 +138,7 @@ run_number = 17
 model.summary()
 
 model.compile(optimizer = "Adam",
-        loss = "mse",
+        loss = "mean_absolute_error",
         metrics=[custom_loss])
 
 lr_schedule = tf.keras.callbacks.LearningRateScheduler(schedular)
