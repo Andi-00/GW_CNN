@@ -36,16 +36,16 @@ data[title[0]] = np.log10(data[title[0]])
 
 print(np.min(data), np.max(data))
 
-sns.set_theme()
+sns.set_theme(font_scale = 0.9, font = "serif")
 
-plot = sns.PairGrid(data, height = 1.5)
+plot = sns.PairGrid(data, height = 1.2)
 
 plot.map_upper(sns.kdeplot, fill = True)
 plot.map_lower(sns.scatterplot, s = 5)
 plot.map_diag(sns.histplot, kde=True)
 
 
-plt.savefig("./thesis_plots/chapter_4/corr.png")
+plt.savefig("./thesis_plots/plots/chapter_4/corr.png")
 
 # plot.fig.suptitle('Correlations in run {}'.format(n_run))
 # plt.savefig("./Network/network_output/run_{}/corr.png".format(n_run))

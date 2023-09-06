@@ -170,15 +170,36 @@ def save_files(files, loc, n = 0):
 # Save the parameters in a csv file
 p0 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
 p1 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
+p2 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
+p3 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
+p4 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
+p5 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
 
-p1[0] /= 10 ** 0.05
-p1[-1] += 1
+par = np.array([p0, p1, p2, p3, p4, p5])
 
-par = np.array([p0, p1])
+nums = [[0, 1], [0, 2], [0, 4], [1, 4], [2, 4]]
+m = [31.36, 2.3, -12, -0.10, -3.25]
+c = [-0.043, 0.012, -0.058, 0.044, 0.097]
+z = [0.3, 0.2, 0.2, 20, 0.4]
+
+for i in range(len(m)):
+    x, y = nums[i][0], nums[i][1]
+
+    dx = z[i] / 2
+    dy = m[i] * dx + c[i]
+
+    if x != 0: par[i + 1][x] += dx
+    else : par[i + 1][x] *= 10 ** (dx)
+
+    par[i + 1][y] += dy
+
+
 
 h = gen_strain(par)
 
 specs = gen_specs(h)
+
+np.savetxt("./thesis_plots/plots/chapter_5/spec_val.csv", np.array(specs[-1]), delimiter = ",")
 
 i = 0
 
@@ -190,7 +211,7 @@ for spec in specs:
     ax.set_ylim(1E-4, 1E-1)
     ax.colorbar(
     label=r'Gravitational-wave amplitude [strain/$\sqrt{\mathrm{Hz}}$]')
-    plot.savefig("./test_{}.png".format(i))
+    plot.savefig("./thesis_plots/plots/chapter_5/specs/spec_{}.png".format(i))
     
     i += 1
 

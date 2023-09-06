@@ -52,7 +52,9 @@ for v in values:
     A = np.vstack([x, np.ones(len(x))]).T
     m, c = np.linalg.lstsq(A, y, rcond=None)[0]
 
-    t = np.linspace(- np.max(np.abs(x)), np.max(np.abs(x)), 1000)
+    print(m, c)
+
+    t = np.linspace(- np.max(np.abs(x)), np.max(np.abs(x)), 100)
 
     fig, ax = plt.subplots()
 
