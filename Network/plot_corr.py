@@ -25,10 +25,10 @@ plt.rcParams['savefig.pad_inches'] = 0.1
 plt.rcParams['figure.figsize'] = (10, 6)
 
 
-n_run = 13
+n_run = 17
 
 data = pd.read_csv("./Network/network_output/run_1.{:02}/deltas.txt".format(n_run), delimiter = ",", names = [r"$\Delta_0$", r"$\Delta_1$", r"$\Delta_2$", r"$\Delta_3$", r"$\Delta_4$"])
-# data = pd.read_csv("/hpcwork/cg457676/data/processed_parameter/pro_par9.csv", delimiter = ",", names = ["Mass", "Distance", "Spin", "Eccentricity", "Seperation"])
+labels = pd.read_csv("/hpcwork/cg457676/data/processed_parameter/pro_par9.csv", delimiter = ",", names = ["Mass", "Distance", "Spin", "Eccentricity", "Seperation"])
 
 data[r"$\Delta_0$"] = 3 * data[r"$\Delta_0$"]
 data[r"$\Delta_1$"] = 99 * data[r"$\Delta_1$"]
@@ -45,26 +45,39 @@ values = [[data["$\Delta_0$"], data["$\Delta_1$"]], [data["$\Delta_0$"], data["$
 nums = [[0, 1], [0, 2], [0, 4], [1, 4], [2, 4]]
 i = 0
 
-for v in values:
+# for v in values:
 
-    x, y = v[0], v[1]
+#     x, y = v[0], v[1]
     
-    A = np.vstack([x, np.ones(len(x))]).T
-    m, c = np.linalg.lstsq(A, y, rcond=None)[0]
+#     A = np.vstack([x, np.ones(len(x))]).T
+#     m, c = np.linalg.lstsq(A, y, rcond=None)[0]
 
-    print(m, c)
+#     print(m, c)
 
-    t = np.linspace(- np.max(np.abs(x)), np.max(np.abs(x)), 100)
+#     t = np.linspace(- np.max(np.abs(x)), np.max(np.abs(x)), 100)
 
-    fig, ax = plt.subplots()
+#     fig, ax = plt.subplots()
 
-    ax.scatter(x, y, color = "#e60049")
-    ax.plot(t, m * t + c, color = "black")
-    ax.grid()
-    plt.savefig("./thesis_plots/plots/chapter_5/{}_{}.png".format(nums[i][0], nums[i][1]))
+#     ax.scatter(x, y, color = "#e60049")
+#     ax.plot(t, m * t + c, color = "black")
+#     ax.grid()
+#     plt.savefig("./thesis_plots/plots/chapter_5/{}_{}.png".format(nums[i][0], nums[i][1]))
 
-    i += 1
+#     i += 1
 
+# dM = data["$\Delta_0$"]
+# dp = data["$\Delta_4$"]
+# M = labels["Mass"]
+
+# fig, ax = plt.subplots()
+# ax.scatter(M, dM, color = "royalblue")
+# ax.grid()
+# plt.savefig("./test1.png")
+
+# fig, ax = plt.subplots()
+# ax.scatter(dM, dp, color = "royalblue")
+# ax.grid()
+# plt.savefig("./test2.png")
 
 
 sns.set_theme(font_scale = 0.9, font = "serif")
@@ -76,9 +89,9 @@ plot.map_lower(sns.scatterplot, s = 5)
 plot.map_diag(sns.histplot)
 
 
-plt.savefig("./thesis_plots/plots/Correlations.png".format(n_run))
+# plt.savefig("./thesis_plots/plots/Correlations.png".format(n_run))
 
 
 
 # plot.fig.suptitle('Correlations in run {}'.format(n_run))
-# plt.savefig("./Network/network_output/run_{}/corr.png".format(n_run))
+plt.savefig("./Network/network_output/run_1.{}/corr.png".format(n_run))
