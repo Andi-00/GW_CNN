@@ -79,13 +79,33 @@ few = FastSchwarzschildEccentricFlux(
     # num_threads=num_threads,  # 2nd way for specific classes
 )
 
+plt.rcParams['pgf.rcfonts'] = False
+plt.rcParams['font.serif'] = []
+plt.rcParams['font.family'] = 'serif'
+plt.rcParams['text.usetex'] = True
+plt.rcParams['axes.formatter.useoffset'] = False
+plt.rcParams['lines.linewidth'] = 2
+plt.rcParams['errorbar.capsize'] = 2
+plt.rcParams['grid.linewidth'] = 0.5
+plt.rcParams['axes.labelsize'] = 20
+plt.rcParams['axes.titlesize'] = 20
+plt.rcParams['xtick.labelsize'] = 18
+plt.rcParams['ytick.labelsize'] = 18
+plt.rcParams['legend.title_fontsize'] = 16
+plt.rcParams['legend.fontsize'] = 16
+plt.rcParams['savefig.dpi'] = 300
+plt.rcParams['savefig.bbox'] = 'tight'
+plt.rcParams['savefig.pad_inches'] = 0.1
+
+#plt.rcParams['savefig.transparent'] = True
+plt.rcParams['figure.figsize'] = (8, 5)
 
 
 gen_wave = GenerateEMRIWaveform("Pn5AAKWaveform")
 
 # parameters
 T = 0.05 # years
-dt = 5  # seconds
+dt = 5 # seconds
 
 M = 1e4  # solar mass
 mu = 1  # solar mass
@@ -93,7 +113,7 @@ mu = 1  # solar mass
 dist = 1.0  # distance in Gpc
 
 p0 = 12.0
-e0 = 0.2
+e0 = 0.3
 x0 = 0.99  # will be ignored in Schwarzschild waveform
 
 qS = 1E-6  # polar sky angle
@@ -157,7 +177,7 @@ def gen_specs(hs):
 
         specs.append(data)
 
-    return specs
+    return np.array(specs)
 
 # Save the spectrogram files as csv data
 def save_files(files, loc, n = 0):
@@ -168,52 +188,83 @@ def save_files(files, loc, n = 0):
 
 
 # Save the parameters in a csv file
-p0 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
-p1 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
-p2 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
-p3 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
-p4 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
-p5 = np.genfromtxt("/hpcwork/cg457676/data/parameters/parameters_0.csv", delimiter = ",")[49]
-
-par = np.array([p0, p1, p2, p3, p4, p5])
-
-nums = [[0, 1], [0, 2], [0, 4], [1, 4], [2, 4]]
-m = [31.36, 2.3, -12, -0.10, -3.25]
-c = [-0.043, 0.012, -0.058, 0.044, 0.097]
-z = [0.3, 0.2, 0.2, 20, 0.4]
-
-for i in range(len(m)):
-    x, y = nums[i][0], nums[i][1]
-
-    dx = z[i] / 2
-    dy = m[i] * dx + c[i]
-
-    if x != 0: par[i + 1][x] += dx
-    else : par[i + 1][x] *= 10 ** (dx)
-
-    par[i + 1][y] += dy
+p0 = np.array([1E5, 1, 0.6, 0.3, 12])
+p1 = np.copy(p0)
+p2 = np.copy(p0)
+p3 = np.copy(p0)
 
 
+rM = [1E4, 1E5, 1E6]
+rd = [1, 5, 10]
+ra = [0.2, 0.4, 0.6, 0.8]
+re = [0.1, 0.3, 0.5, 0.7]
+rp = [10, 12, 14, 16]
+
+p1[2] = 0.2
+p2[3] = 0.7
+p3[4] = 16
+
+par = [p0, p1, p2, p3]
+
+# for r in rM:
+#     p0[0] = r
+#     par.append(p0)
+
+par = np.array(par)
 
 h = gen_strain(par)
 
 specs = gen_specs(h)
 
-np.savetxt("./thesis_plots/plots/chapter_5/spec_val.csv", np.array(specs[-1]), delimiter = ",")
+# for i in len(specs):
+#     np.savetxt("./thesis_plots/plots/chapter_6/M/spec_{:.1E}.csv".format(rM[i]), np.array(specs[i]), delimiter = ",")
 
-i = 0
 
-for spec in specs:
+# fig, ax = plt.subplots()
 
-    plot = spec.imshow(norm='log', vmin = np.max(specs) * 1E-6)
-    ax = plot.gca()
-    ax.set_yscale('log')
+# h = h[0][: 400].real * 1E23
+# t = np.arange(len(h)) * dt
+
+# ax.plot(t, h, color = "#e60049")
+# ax.set_xlabel("Time $t$ / s")
+# ax.set_ylabel("Strain $h_+ / 10^{-23}$")
+# ax.grid(True)
+
+# plt.savefig("./thesis_plots/plots/chapter_6/reference_h.png")
+
+
+import matplotlib.colors as colors
+
+names = ["reference", "a", "e", "p"]
+
+for i in range(len(par)):
+
+    fig, ax = plt.subplots()
+
+    x = (np.arange(0, 79) + 0.5) * 2E4 / (3600 * 24)
+    y = (np.arange(2E3 + 1) + 0.5) * 5E-5
+    z = np.swapaxes(specs[i], 0, 1)
+
+
+    pc = ax.pcolormesh(x, y, z, norm = colors.LogNorm(vmin = np.max(z) * 1E-6, vmax = np.max(z)))
+    ax.set_yscale("log")
+
     ax.set_ylim(1E-4, 1E-1)
-    ax.colorbar(
-    label=r'Gravitational-wave amplitude [strain/$\sqrt{\mathrm{Hz}}$]')
-    plot.savefig("./thesis_plots/plots/chapter_5/specs/spec_{}.png".format(i))
-    
-    i += 1
+
+
+    ax.set_ylabel("Frequency $f$ in Hz")
+    ax.set_xlabel("Time $t$ in days")
+    # ax.colorbar(label=r'Gravitational wave amplitude [1/$\sqrt{\mathrm{Hz}}$]')
+
+    plt.colorbar(pc, label=r'GW amplitude [1/$\sqrt{\mathrm{Hz}}$]')
+    # ax.set_title("Spectrogram of data set nr. {:04}".format(n), y = 1.02)
+
+
+    ax.grid(False)
+
+    plt.savefig("./thesis_plots/plots/chapter_6/{}_spec.png".format(names[i]))
+
+
 
 
 
