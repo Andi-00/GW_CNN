@@ -206,6 +206,7 @@ p3[4] = 16
 
 par = [p0, p1, p2, p3]
 
+
 # for r in rM:
 #     p0[0] = r
 #     par.append(p0)
@@ -226,43 +227,43 @@ specs = gen_specs(h)
 # t = np.arange(len(h)) * dt
 
 # ax.plot(t, h, color = "#e60049")
-# ax.set_xlabel("Time $t$ / s")
-# ax.set_ylabel("Strain $h_+ / 10^{-23}$")
+# ax.set_xlabel("Time $t$ [s]")
+# ax.set_ylabel("Strain $h_+$ [$10^{-23}$]")
 # ax.grid(True)
 
 # plt.savefig("./thesis_plots/plots/chapter_6/reference_h.png")
 
 
-import matplotlib.colors as colors
+# import matplotlib.colors as colors
 
-names = ["reference", "a", "e", "p"]
+# names = ["reference", "a", "e", "p"]
 
-for i in range(len(par)):
+# for i in range(len(par)):
 
-    fig, ax = plt.subplots()
+#     fig, ax = plt.subplots()
 
-    x = (np.arange(0, 79) + 0.5) * 2E4 / (3600 * 24)
-    y = (np.arange(2E3 + 1) + 0.5) * 5E-5
-    z = np.swapaxes(specs[i], 0, 1)
-
-
-    pc = ax.pcolormesh(x, y, z, norm = colors.LogNorm(vmin = np.max(z) * 1E-6, vmax = np.max(z)))
-    ax.set_yscale("log")
-
-    ax.set_ylim(1E-4, 1E-1)
+#     x = (np.arange(0, 79) + 0.5) * 2E4 / (3600 * 24)
+#     y = (np.arange(2E3 + 1) + 0.5) * 5E-5
+#     z = np.swapaxes(specs[i], 0, 1)
 
 
-    ax.set_ylabel("Frequency $f$ in Hz")
-    ax.set_xlabel("Time $t$ in days")
-    # ax.colorbar(label=r'Gravitational wave amplitude [1/$\sqrt{\mathrm{Hz}}$]')
+#     pc = ax.pcolormesh(x, y, z, norm = colors.LogNorm(vmin = np.max(z) * 1E-6, vmax = np.max(z)))
+#     ax.set_yscale("log")
 
-    plt.colorbar(pc, label=r'GW amplitude [1/$\sqrt{\mathrm{Hz}}$]')
-    # ax.set_title("Spectrogram of data set nr. {:04}".format(n), y = 1.02)
+#     ax.set_ylim(1E-4, 1E-1)
 
 
-    ax.grid(False)
+#     ax.set_ylabel("Frequency $f$ [Hz]")
+#     ax.set_xlabel("Time $t$ [d]")
+#     # ax.colorbar(label=r'Gravitational wave amplitude [1/$\sqrt{\mathrm{Hz}}$]')
 
-    plt.savefig("./thesis_plots/plots/chapter_6/{}_spec.png".format(names[i]))
+#     plt.colorbar(pc, label=r'GW amplitude [1/$\sqrt{\mathrm{Hz}}$]')
+#     # ax.set_title("Spectrogram of data set nr. {:04}".format(n), y = 1.02)
+
+
+#     ax.grid(False)
+
+#     plt.savefig("./thesis_plots/plots/chapter_6/{}_spec.png".format(names[i]))
 
 
 
